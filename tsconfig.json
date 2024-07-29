@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es6",
+      "sourceMap": true,
+      "outDir": "dist",
+      "declaration": true,
+      "esModuleInterop": true,
+      "types": [
+        "node",
+        "mocha"
+      ]
+    },
+    "include": [
+      "lib/index.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }

@@ -1,0 +1,54 @@
+{
+    "name": "hexo-solitude-tag",
+    "version": "1.0.0",
+    "description": "Plugin tags used only for Solitude themes",
+    "main": "dist/index.js",
+    "scripts": {
+      "prepublish ": "npm install && npm run clean && npm run build",
+      "build": "tsc -b",
+      "clean": "tsc -b --clean",
+      "eslint": "eslint .",
+      "pretest": "npm run clean && npm run build",
+      "test": "mocha -r ts-node/register 'test/**/*.ts'",
+      "test-cov": "c8 --reporter=lcovonly npm test"
+    },
+    "directories": {
+      "lib": "./lib"
+    },
+    "files": [
+      "dist/**"
+    ],
+    "types": "./dist/index.d.ts",
+    "repository": "everfu/hexo-solitude-tag",
+    "homepage": "https://everfu.github.io/Solitude/",
+    "keywords": [
+      "website",
+      "blog",
+      "cms",
+      "framework",
+      "hexo"
+    ],
+    "author": "Everfu (https://github.com/everfu)",
+    "license": "MIT",
+    "devDependencies": {
+      "@types/chai": "^4.3.9",
+      "@types/mocha": "^10.0.3",
+      "@types/node": "^18.15.3",
+      "c8": "^8.0.1",
+      "chai": "^4.3.10",
+      "cheerio": "^1.0.0-rc.12",
+      "eslint": "^8.36.0",
+      "eslint-config-hexo": "^5.0.0",
+      "hexo": "^7.0.0",
+      "hexo-renderer-marked": "^6.1.1",
+      "mocha": "^10.2.0",
+      "ts-node": "^10.9.1",
+      "typescript": "^5.2.2"
+    },
+    "engines": {
+      "node": ">=14"
+    },
+    "dependencies": {
+      "hexo-util": "^3.1.0"
+    }
+  }
