@@ -1,7 +1,7 @@
 import Hexo from 'hexo';
 import { join } from 'path';
 const escapeSwigTag = str => str.replace(/{/g, '&#123;').replace(/}/g, '&#125;');
-import { youtubeTag } from '../lib/tags/youtube';
+import { youtubeTag } from '../lib';
 
 describe('Post', () => {
   const hexo = new Hexo(join(__dirname, 'post_test'));

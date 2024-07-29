@@ -1,11 +1,11 @@
 {
     "name": "hexo-solitude-tag",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "description": "Plugin tags used only for Solitude themes",
     "main": "dist/index.js",
     "scripts": {
       "prepublish ": "npm install && npm run clean && npm run build",
-      "build": "tsc -b",
+      "build": "tsc -b && cp -r lib/css dist",
       "clean": "tsc -b --clean",
       "eslint": "eslint .",
       "pretest": "npm run clean && npm run build",

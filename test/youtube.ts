@@ -1,4 +1,4 @@
-import { youtubeTag } from '../lib/tags/youtube';
+import { youtubeTag } from '../lib';
 import { load } from 'cheerio';
 import chai from 'chai';
 const should = chai.should(); // eslint-disable-line
