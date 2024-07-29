@@ -1,4 +1,4 @@
-import { youtube } from './tags/youtube';
+import { youtubeTag } from './tags/youtube';
 
 // @ts-ignore
-hexo.extend.tag.register('youtube', youtube);
+hexo.extend.tag.register('youtube', youtubeTag);
