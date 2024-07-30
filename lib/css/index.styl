@@ -4,17 +4,14 @@ if $tag_span
 if $tag_fold
   @import "fold.styl"
 
-if $tag_video
-  @import "video.styl"
+if $tag_media
+  @import "media.styl"
 
 if $tag_link
   @import "link.styl"
 
 if $tag_label
   @import "label.styl"
-
-if $tag_mermaid
-  @import "mermaid.styl"
 
 if $tag_inline_img
   @import "inline-img.styl"
@@ -91,3 +88,15 @@ if $tag_timeline
 
   i
     transform scale(1.5)
+
+.video-container
+  display flex
+  justify-content center
+
+  iframe
+    width 80%
+    height 400px
+
+    @media screen and (max-width: 768px)
+      width 100%
+      height 200px

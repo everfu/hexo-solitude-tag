@@ -1,22 +1,46 @@
+$colors = {
+  info: #428bca,
+  danger: #d9534f,
+  primary: #6f42c1,
+  warning: #f0ad4e,
+  success: #5cb85c,
+  default: #777
+}
+
 .note
   position relative
   margin .5rem 0
   padding 15px
   border-radius 3px
 
-  &.icon
-    padding-left 2.25rem
+  &:not(.no-icon)
+    padding-left 2.2rem
 
-  > .note-icon
+  > i.solitude
+    margin-right 0.7rem
+    font-size 24px
     position absolute
-    top calc(50% - .4rem)
-    left .7rem
-    font-size larger
+    left .5rem
+    top calc(100% / 2 - 12px)
 
   a
     color inherit !important
+
     &:hover
       color var(--efu-white) !important
+
+  for $color, $value in $colors
+    &.{$color}:not(.disabled)
+      border-left-color $value
+
+      &.modern
+        color $value
+
+      &:not(.simple)
+        background lighten($value, 75%)
+
+      > i
+        color $value
 
   &.simple
     border-width 1px 1px 1px 5px
@@ -48,12 +72,3 @@
   blockquote:last-child, img:last-child, ol:last-child, p:last-child, pre:last-child, table:last-child, ul:last-child
     margin-bottom 0 !important
     font-size 14px !important
-
-  &:not(.no-icon)
-    padding-left 2.25rem
-
-    &::before
-      position absolute
-      top calc(50% - 19px)
-      left .7rem
-      font-size larger

@@ -32,9 +32,6 @@ hexo.extend.tag.register('link', linkTag);
 hexo.extend.tag.register('label', labelTag);
 
 // @ts-ignore
-hexo.extend.tag.register('mermaid', mermaidTag, {ends: true});
-
-// @ts-ignore
 hexo.extend.tag.register('img', imgTag);
 
 // @ts-ignore
@@ -56,43 +53,27 @@ hexo.extend.tag.register('timeline', timelineTag, {ends: true});
 hexo.extend.tag.register('timenode', timenodeTag, {ends: true});
 
 let _span = false;
-let _video = false;
 let _fold = false;
 let _link = false;
 let _label = false;
-let _mermaid = false;
 let _inline_img = false;
 let _check = false;
 let _note = false;
 let _timeline = false;
+let _media = false;
 // @ts-ignore
 hexo.extend.filter.register('stylus:renderer', (style: any) => {
   style
     .define('$tag_span', _span)
-    .define('$tag_video', _video)
     .define('$tag_fold', _fold)
     .define('$tag_link', _link)
     .define('$tag_label', _label)
-    .define('$tag_mermaid', _mermaid)
     .define('$tag_inline_img', _inline_img)
     .define('$tag_checkbox', _check)
     .define('$tag_note', _note)
     .define('$tag_timeline', _timeline)
+    .define('$tag_media', _media)
     .import(path.join(__dirname, 'css', 'index.styl'));
-});
-
-// @ts-ignore
-hexo.extend.filter.register('after_generate', () => {
-  // @ts-ignore
-  const {config} = hexo.theme.config;
-  // @ts-ignore
-  hexo.extend.injector.register('head_begin', () => {
-    let result = '';
-    if (_mermaid) {
-      result += `<link rel="stylesheet" href='${config.CDN.mermaid_js}'>`;
-    }
-    return result;
-  });
 });
 
 type str = [string];
@@ -109,7 +90,6 @@ type str3 = [string, string, string];
  *  {% bvideo bvid %}
  */
 export function bvideoTag([id]: str) {
-  _video = true;
   return htmlTag('div', {
     class: 'video-container'
   }, htmlTag('iframe', {
@@ -187,7 +167,11 @@ export function foldTag([title, open]: str2) {
  * {% audio src %}
  */
 export function audioTag([src]: str) {
-  return htmlTag('div', {class: 'audio-container'}, htmlTag('audio', {src, controls: true}, '', false), false);
+  _media = true;
+  return htmlTag('div', {class: 'audio'}, '<audio controls preload>' + htmlTag('source', {
+    src,
+    type: 'audio/mp3'
+  }, 'Your browser does not support the audio tag.', false), false);
 }
 
 /**
@@ -197,8 +181,11 @@ export function audioTag([src]: str) {
  * {% video src %}
  */
 export function videoTag([src]: str) {
-  _video = true;
-  return htmlTag('div', {class: 'video-container'}, htmlTag('audio', {src, controls: true}, '', false), false);
+  _media = true;
+  return htmlTag('div', {class: 'video'}, '<video controls preload>' + htmlTag('source', {
+    src,
+    type: 'video/mp4'
+  }, 'Your browser does not support the video tag.', false), false);
 }
 
 /**
@@ -247,26 +234,9 @@ export function linkTag([title, subtitle, link]: str3) {
  * Syntax:
  * {% label text %}
  */
-export function labelTag([cls, text]: str2) {
+export function labelTag([text, cls]: str2) {
   _label = true;
   return htmlTag('span', {class: `hl-label bg-${cls}`}, text, false);
-}
-
-/**
- * Mermaid tag
- *
- * Syntax:
- * {% mermaid %}
- * graph TD;
- *  A-->B;
- *  A-->C;
- *  B-->D;
- *  C-->D;
- * {% endmermaid %}
- */
-export function mermaidTag(args: string[], [content]: str) {
-  _mermaid = true;
-  return htmlTag('div', {class: 'mermaid'}, content, false);
 }
 
 /**
@@ -285,9 +255,9 @@ export function imgTag([src, alt, style]: str3) {
  * Syntax:
  * {% inline_img src alt height %}
  */
-export function inlineImgTag([src, alt, height]: str3) {
+export function inlineImgTag([src, title, height]: str3) {
   _inline_img = true;
-  return htmlTag('img', {src, alt, height});
+  return htmlTag('img', {src, title, height, class: 'inline-img'});
 }
 
 /**
@@ -339,9 +309,11 @@ export function radioTag([style, checked, content]: str3 | str2) {
 export function noteTag([cls, icon]: str2 | string, content: string) {
   _note = true;
   if (typeof icon === 'undefined') {
-    icon = 'no-icon';
+    icon = null;
+    cls += ' no-icon';
   }
-  return htmlTag('div', {class: `note ${cls}`}, htmlTag('i', {class: `solitude ${icon}`}, '', false) + content, false);
+  // @ts-ignore
+  return htmlTag('div', {class: `note ${cls}`}, (icon ? htmlTag('i', {class: `solitude ${icon}`}, '', false) : '') + hexo.render.renderSync({ text: content, engine: 'markdown' }).trim(), false);
 }
 
 /**
@@ -354,7 +326,7 @@ export function noteTag([cls, icon]: str2 | string, content: string) {
  */
 export function timelineTag([title]: str, content: string) {
   _timeline = true;
-  return htmlTag('div', {class: 'timeline'}, htmlTag('h1', {class: 'timeline-title'}, title, false) + content, false);
+  return htmlTag('div', {class: 'timeline'}, htmlTag('span', {class: 'timeline-title'}, title, false) + content, false);
 }
 
 /**
@@ -367,5 +339,9 @@ export function timelineTag([title]: str, content: string) {
  */
 export function timenodeTag([time]: str, content: string) {
   _timeline = true;
-  return htmlTag('div', {class: 'timenode'}, htmlTag('div', {class: 'meta'}, `<p>${time}</p>`, false) + `<div class="body">${content}</div>`, false);
+  // @ts-ignore
+  return htmlTag('div', {class: 'timenode'}, htmlTag('div', {class: 'meta'}, `<p>${time}</p>`, false) + `<div class="body">${hexo.render
+    .renderSync({text: content, engine: 'markdown'})
+    .split('\n')
+    .join('')}</div>`, false);
 }
