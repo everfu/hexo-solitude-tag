@@ -31,22 +31,67 @@ hexo.extend.tag.register('link', linkTag);
 // @ts-ignore
 hexo.extend.tag.register('label', labelTag);
 
+// @ts-ignore
+hexo.extend.tag.register('mermaid', mermaidTag, {ends: true});
+
+// @ts-ignore
+hexo.extend.tag.register('img', imgTag);
+
+// @ts-ignore
+hexo.extend.tag.register('inline_img', inlineImgTag);
+
+// @ts-ignore
+hexo.extend.tag.register('checkbox', checkboxTag);
+
+// @ts-ignore
+hexo.extend.tag.register('radio', radioTag);
+
+// @ts-ignore
+hexo.extend.tag.register('note', noteTag, {ends: true});
+
+// @ts-ignore
+hexo.extend.tag.register('timeline', timelineTag, {ends: true});
+
+// @ts-ignore
+hexo.extend.tag.register('timenode', timenodeTag, {ends: true});
+
 let _span = false;
 let _video = false;
 let _fold = false;
 let _link = false;
 let _label = false;
+let _mermaid = false;
+let _inline_img = false;
+let _check = false;
+let _note = false;
+let _timeline = false;
 // @ts-ignore
-hexo.extend.filter.register('after_render:html', () => {
+hexo.extend.filter.register('stylus:renderer', (style: any) => {
+  style
+    .define('$tag_span', _span)
+    .define('$tag_video', _video)
+    .define('$tag_fold', _fold)
+    .define('$tag_link', _link)
+    .define('$tag_label', _label)
+    .define('$tag_mermaid', _mermaid)
+    .define('$tag_inline_img', _inline_img)
+    .define('$tag_checkbox', _check)
+    .define('$tag_note', _note)
+    .define('$tag_timeline', _timeline)
+    .import(path.join(__dirname, 'css', 'index.styl'));
+});
+
+// @ts-ignore
+hexo.extend.filter.register('after_generate', () => {
   // @ts-ignore
-  hexo.extend.filter.register('stylus:renderer', (style: any) => {
-    style
-      .define('$tag_span', _span)
-      .define('$tag_video', _video)
-      .define('$tag_fold', _fold)
-      .define('$tag_link', _link)
-      .define('$tag_label', _label)
-      .import(path.join(__dirname, 'css', 'index.styl'));
+  const {config} = hexo.theme.config;
+  // @ts-ignore
+  hexo.extend.injector.register('head_begin', () => {
+    let result = '';
+    if (_mermaid) {
+      result += `<link rel="stylesheet" href='${config.CDN.mermaid_js}'>`;
+    }
+    return result;
   });
 });
 
@@ -104,7 +149,7 @@ export function youtubeTag([id, type = 'video', cookie = true]: str | str2 | str
  * Span tag
  *
  * Syntax:
- *  {% span class, content %}
+ *  {% span class content %}
  */
 export function spanTag([cls, text]: str2) {
   _span = true;
@@ -115,7 +160,7 @@ export function spanTag([cls, text]: str2) {
  * P tag
  *
  * Syntax:
- * {% p class, content %}
+ * {% p class content %}
  */
 export function pTag([cls, text]: str2) {
   _span = true;
@@ -126,7 +171,7 @@ export function pTag([cls, text]: str2) {
  * Fold tag
  *
  * Syntax:
- * {% fold title , open %}
+ * {% fold title open %}
  * content
  * {% endfold %}
  */
@@ -173,20 +218,27 @@ export function videosTag([cls, col]: strnum, content: string) {
  * Link tag
  *
  * Syntax:
- * {% link title,subtitle,link %}
+ * {% link title subtitle link %}
  */
 export function linkTag([title, subtitle, link]: str3) {
   _link = true;
   const isLocal = link.startsWith('/');
-  const api = 'https://api.iowen.cn/favicon/';
-  const content = htmlTag('div', {
-    class: 'tag-link-left',
-    style: `background-image: url(${api}${link})`
-  }, htmlTag('i', {
-    class: 'solitude fas fa-link'
-  })) + htmlTag('div', {class: 'tag-link-right'}, htmlTag('div', {class: 'tag-link-title'}, title, false) + htmlTag('div', {class: 'tag-link-sitename'}, subtitle, false), false);
-  const html = htmlTag('div', {class: 'tag-link-tips'}, isLocal ? '站内链接' : '引用站外链接', false) + htmlTag('div', {class: 'tag-link-bottom'}, content, false);
-  return htmlTag('a', {class: 'tag-link', href: link, target: isLocal ? '_self' : '_blank'}, html, false);
+  const bottom = `
+    <div class="tag-link-tips">${isLocal ? '站内链接' : '引用站外链接'}</div>
+    <div class="tag-link-bottom">
+        <div class="tag-link-left">
+          <i class="solitude fas fa-link"></i>
+        </div>
+        <div class="tag-link-right">
+            <div class="tag-link-title">${title}</div>
+            <div class="tag-link-sitename">${subtitle}</div>
+        </div>
+        <i class="solitude fas fa-chevron-right"></i>
+    </div>`;
+  return htmlTag('a', {
+    class: 'tag-link',
+    href: link, target: isLocal ? '_self' : '_blank'
+  }, bottom, false);
 }
 
 /**
@@ -198,4 +250,122 @@ export function linkTag([title, subtitle, link]: str3) {
 export function labelTag([cls, text]: str2) {
   _label = true;
   return htmlTag('span', {class: `hl-label bg-${cls}`}, text, false);
+}
+
+/**
+ * Mermaid tag
+ *
+ * Syntax:
+ * {% mermaid %}
+ * graph TD;
+ *  A-->B;
+ *  A-->C;
+ *  B-->D;
+ *  C-->D;
+ * {% endmermaid %}
+ */
+export function mermaidTag(args: string[], [content]: str) {
+  _mermaid = true;
+  return htmlTag('div', {class: 'mermaid'}, content, false);
+}
+
+/**
+ * Image tag
+ *
+ * Syntax:
+ * {% img src alt style %}
+ */
+export function imgTag([src, alt, style]: str3) {
+  return htmlTag('img', {src, alt, style});
+}
+
+/**
+ * Inline Image tag
+ *
+ * Syntax:
+ * {% inline_img src alt height %}
+ */
+export function inlineImgTag([src, alt, height]: str3) {
+  _inline_img = true;
+  return htmlTag('img', {src, alt, height});
+}
+
+/**
+ * CheckBox tag
+ *
+ * Syntax:
+ * {% checkbox style checked content %}
+ */
+export function checkboxTag([style, checked, content]: str3 | str2) {
+  _check = true;
+  if (typeof content === 'undefined') {
+    content = checked;
+    checked = 'checked';
+  }
+  return htmlTag('div', {class: 'checkbox'}, htmlTag('input', {
+    type: 'checkbox',
+    checked,
+    style
+  }, content, false), false);
+}
+
+/**
+ * Radio tag
+ *
+ * Syntax:
+ * {% radio style checked content %}
+ */
+export function radioTag([style, checked, content]: str3 | str2) {
+  _check = true;
+  if (typeof content === 'undefined') {
+    content = checked;
+    checked = 'checked';
+  }
+  return htmlTag('div', {class: 'checkbox'}, htmlTag('input', {
+    type: 'radio',
+    checked,
+    style
+  }, content, false), false);
+}
+
+/**
+ * Note tag
+ *
+ * Syntax:
+ * {% note class icon %}
+ * content
+ * {% endnote %}
+ */
+export function noteTag([cls, icon]: str2 | string, content: string) {
+  _note = true;
+  if (typeof icon === 'undefined') {
+    icon = 'no-icon';
+  }
+  return htmlTag('div', {class: `note ${cls}`}, htmlTag('i', {class: `solitude ${icon}`}, '', false) + content, false);
+}
+
+/**
+ * TimeLine tag
+ *
+ * Syntax:
+ * {% timeline title %}
+ * content
+ * {% ebdtimeline %}
+ */
+export function timelineTag([title]: str, content: string) {
+  _timeline = true;
+  return htmlTag('div', {class: 'timeline'}, htmlTag('h1', {class: 'timeline-title'}, title, false) + content, false);
+}
+
+/**
+ * TimeNode tag
+ *
+ * Syntax:
+ * {% timenode time %}
+ * content
+ * {% endtimenode %}
+ */
+export function timenodeTag([time]: str, content: string) {
+  _timeline = true;
+  return htmlTag('div', {class: 'timenode'}, htmlTag('div', {class: 'meta'}, `<p>${time}</p>`, false) + `<div class="body">${content}</div>`, false);
 }
