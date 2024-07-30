@@ -2,9 +2,6 @@
 
 # Solitude Tag Plugins
 
-[![CI](https://github.com/everfu/hexo-solitude-tag/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/everfu/hexo-solitude-tag/actions/workflows/ci.yml)
-[![Coverage Status](https://coveralls.io/repos/github/everfu/hexo-solitude-tag/badge.svg)](https://coveralls.io/github/everfu/hexo-solitude-tag)
-
 ![npm package](https://img.shields.io/npm/v/hexo-solitude-tag?style=for-the-badge)
 ![license](https://img.shields.io/github/license/everfu/hexo-solitude-tag?color=FF5531&style=for-the-badge)
 [![Stars](https://img.shields.io/github/stars/everfu/hexo-solitude-tag?style=for-the-badge)](https://github.com/everfu/hexo-solitude-tag/stargazers)

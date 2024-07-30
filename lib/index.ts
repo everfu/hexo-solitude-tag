@@ -3,52 +3,36 @@ import {htmlTag} from 'hexo-util';
 
 // @ts-ignore
 hexo.extend.tag.register('youtube', youtubeTag);
-
 // @ts-ignore
 hexo.extend.tag.register('p', pTag);
-
 // @ts-ignore
 hexo.extend.tag.register('span', spanTag);
-
 // @ts-ignore
 hexo.extend.tag.register('bvideo', bvideoTag);
-
 // @ts-ignore
 hexo.extend.tag.register('fold', foldTag, {ends: true});
-
 // @ts-ignore
 hexo.extend.tag.register('audio', audioTag);
-
 // @ts-ignore
 hexo.extend.tag.register('video', videoTag);
-
 // @ts-ignore
 hexo.extend.tag.register('videos', videosTag, {ends: true});
-
 // @ts-ignore
 hexo.extend.tag.register('link', linkTag);
-
 // @ts-ignore
 hexo.extend.tag.register('label', labelTag);
-
 // @ts-ignore
 hexo.extend.tag.register('img', imgTag);
-
 // @ts-ignore
 hexo.extend.tag.register('inline_img', inlineImgTag);
-
 // @ts-ignore
 hexo.extend.tag.register('checkbox', checkboxTag);
-
 // @ts-ignore
 hexo.extend.tag.register('radio', radioTag);
-
 // @ts-ignore
 hexo.extend.tag.register('note', noteTag, {ends: true});
-
 // @ts-ignore
 hexo.extend.tag.register('timeline', timelineTag, {ends: true});
-
 // @ts-ignore
 hexo.extend.tag.register('timenode', timenodeTag, {ends: true});
 
