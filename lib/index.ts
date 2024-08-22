@@ -35,6 +35,17 @@ hexo.extend.tag.register('note', noteTag, {ends: true});
 hexo.extend.tag.register('timeline', timelineTag, {ends: true});
 // @ts-ignore
 hexo.extend.tag.register('timenode', timenodeTag, {ends: true});
+// @ts-ignore
+hexo.extend.tag.register('button', buttonTag);
+// @ts-ignore
+hexo.extend.tag.register('github', githubTag);
+// @ts-ignore
+hexo.extend.tag.register('gitlab', gitlabTag);
+// @ts-ignore
+hexo.extend.tag.register('gitee', giteeTag);
+// @ts-ignore
+hexo.extend.tag.register('gitea', giteaTag);
+
 
 let _span = false;
 let _fold = false;
@@ -45,6 +56,8 @@ let _check = false;
 let _note = false;
 let _timeline = false;
 let _media = false;
+let _button = false;
+let _repo = false;
 // @ts-ignore
 hexo.extend.filter.register('stylus:renderer', (style: any) => {
   style
@@ -57,6 +70,8 @@ hexo.extend.filter.register('stylus:renderer', (style: any) => {
     .define('$tag_note', _note)
     .define('$tag_timeline', _timeline)
     .define('$tag_media', _media)
+    .define('$tag_button', _button)
+    .define('$tag_repo', _repo)
     .import(path.join(__dirname, 'css', 'index.styl'));
 });
 
@@ -297,7 +312,10 @@ export function noteTag([cls, icon]: str2 | string, content: string) {
     cls += ' no-icon';
   }
   // @ts-ignore
-  return htmlTag('div', {class: `note ${cls}`}, (icon ? htmlTag('i', {class: `solitude ${icon}`}, '', false) : '') + hexo.render.renderSync({ text: content, engine: 'markdown' }).trim(), false);
+  return htmlTag('div', {class: `note ${cls}`}, (icon ? htmlTag('i', {class: `solitude ${icon}`}, '', false) : '') + hexo.render.renderSync({
+    text: content,
+    engine: 'markdown'
+  }).trim(), false);
 }
 
 /**
@@ -328,4 +346,174 @@ export function timenodeTag([time]: str, content: string) {
     .renderSync({text: content, engine: 'markdown'})
     .split('\n')
     .join('')}</div>`, false);
+}
+
+/**
+ * Button tag
+ *
+ * Syntax:
+ * {% button 'icon' 'content' 'url' %}
+ */
+export function buttonTag([icon, content, url]: str3 | str2) {
+  _button = true;
+
+  if (url === undefined) {
+    url = content;
+    content = null;
+  }
+
+  const onclickAction = url.startsWith('/')
+    ? `pjax.loadUrl('${url}')`
+    : `window.open('${url}')`;
+
+  const contentHtml = content ? htmlTag('span', {}, content, false) : '';
+
+  return htmlTag('button', {
+    class: 'st-btn',
+    onclick: onclickAction
+  }, `<i class="solitude ${icon}"></i>${contentHtml}`, false);
+}
+
+/**
+ * Github card tag
+ *
+ * Syntax:
+ * {% github repo %}
+ */
+export function githubTag([repo]: str) {
+  _repo = true;
+  const id = Math.random().toString(36).substr(2, 9);
+  return htmlTag('div', {
+    class: 'repo-card'
+  }, `
+  <a class='name-${id} repo-title fancybox' href="https://github.com/${repo}"></a>
+  <p class='desc-${id} repo-desc'></p>
+  <div class="repo-gist">
+    <i class="fas fa-star"></i>
+    <span class='star-${id}'></span>
+    <i class="fas fa-code-branch"></i>
+    <span class='fork-${id}'></span>
+  </div>
+  <img class='lang-${id} repo-language no-lightbox' />
+  <script>
+    fetch('https://api.github.com/repos/${repo}')
+      .then(res => res.json())
+      .then(data => {
+        document.querySelector('.name-${id}').innerText = data.name;
+        document.querySelector('.desc-${id}').innerText = data.description;
+        document.querySelector('.star-${id}').innerText = data.stargazers_count;
+        document.querySelector('.fork-${id}').innerText = data.forks_count;
+        document.querySelector('.lang-${id}').src = 'https://skillicons.dev/icons?i=' + data.language.toLowerCase();
+    });
+  </script>
+  `
+  , false);
+}
+
+/**
+ * Gitlab card tag
+ *
+ * Syntax:
+ * {% gitlab repo %}
+ */
+export function gitlabTag([repo]: str) {
+  _repo = true;
+  const id = Math.random().toString(36).substr(2, 9);
+  return htmlTag('div', {
+    class: 'repo-card'
+  }, `
+  <a class='name-${id} repo-title fancybox' href="https://gitlab.com/${repo}"></a>
+  <p class='desc-${id} repo-desc'></p>
+  <div class="repo-gist">
+    <i class="fas fa-star"></i>
+    <span class='star-${id}'></span>
+    <i class="fas fa-code-branch"></i>
+    <span class='fork-${id}'></span>
+  </div>
+  <img class='lang-${id} repo-language no-lightbox' />
+  <script>
+    fetch('https://gitlab.com/api/v4/projects/${repo}')
+      .then(res => res.json())
+      .then(data => {
+        document.querySelector('.name-${id}').innerText = data.name;
+        document.querySelector('.desc-${id}').innerText = data.description;
+        document.querySelector('.star-${id}').innerText = data.star_count;
+        document.querySelector('.fork-${id}').innerText = data.forks_count;
+        document.querySelector('.lang-${id}').src = 'https://skillicons.dev/icons?i=' + data.language.toLowerCase();
+    });
+  </script>
+  `
+  , false);
+}
+
+/**
+ * Gitee card tag
+ *
+ * Syntax:
+ * {% gitee repo %}
+ */
+export function giteeTag([repo]: str) {
+  _repo = true;
+  const id = Math.random().toString(36).substr(2, 9);
+  return htmlTag('div', {
+    class: 'repo-card'
+  }, `
+  <a class='name-${id} repo-title fancybox' href="https://gitee.com/${repo}"></a>
+  <p class='desc-${id} repo-desc'></p>
+  <div class="repo-gist">
+    <i class="fas fa-star"></i>
+    <span class='star-${id}'></span>
+    <i class="fas fa-code-branch"></i>
+    <span class='fork-${id}'></span>
+  </div>
+  <img class='lang-${id} repo-language no-lightbox' />
+  <script>
+    fetch('https://gitee.com/api/v5/repos/${repo}')
+      .then(res => res.json())
+      .then(data => {
+        document.querySelector('.name-${id}').innerText = data.name;
+        document.querySelector('.desc-${id}').innerText = data.description;
+        document.querySelector('.star-${id}').innerText = data.stargazers_count;
+        document.querySelector('.fork-${id}').innerText = data.forks_count;
+        document.querySelector('.lang-${id}').src = 'https://skillicons.dev/icons?i=' + data.language.toLowerCase();
+    });
+  </script>
+  `
+  , false);
+}
+
+/**
+ * Gitea card tag
+ *
+ * Syntax:
+ * {% gitea server repo %}
+ */
+export function giteaTag([server, repo]: str2) {
+  _repo = true;
+  const id = Math.random().toString(36).substr(2, 9);
+  return htmlTag('div', {
+    class: 'repo-card'
+  }, `
+  <a class='name-${id} repo-title fancybox' href="${server}/${repo}"></a>
+  <p class='desc-${id} repo-desc'></p>
+  <div class="repo-gist">
+    <i class="fas fa-star"></i>
+    <span class='star-${id}'></span>
+    <i class="fas fa-code-branch"></i>
+    <span class='fork-${id}'></span>
+  </div>
+  <img class='lang-${id} repo-language no-lightbox' />
+  <script>
+    fetch('${server}/api/v1/repos/${repo}')
+      .then(res => res.json())
+      .then(data => {
+        document.querySelector('.name-${id}').innerText = data.name;
+        document.querySelector('.desc-${id}').innerText = data.description;
+        document.querySelector('.star-${id}').innerText = data.stars_count;
+        document.querySelector('.fork-${id}').innerText = data.forks_count;
+        document.querySelector('.lang-${id}').src = 'https://skillicons.dev/icons?i=' + data.language.toLowerCase();
+    });
+  </script>
+  `
+  , false);
 }

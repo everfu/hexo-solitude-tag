@@ -1,10 +1,10 @@
 {
   "name": "hexo-solitude-tag",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "Plugin tags used only for Solitude themes",
   "main": "dist/index.js",
   "scripts": {
-    "prepublish ": "pnpm install && pnpm run clean && pnpm run build",
+    "prepublish": "pnpm install && pnpm run clean && pnpm run build",
     "build": "tsc -b && cp -r lib/css dist",
     "clean": "tsc -b --clean",
     "eslint": "eslint .",
@@ -31,9 +31,9 @@
   "author": "Everfu (https://github.com/everfu)",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^4.3.16",
+    "@types/chai": "^4.3.17",
     "@types/mocha": "^10.0.7",
-    "@types/node": "^18.19.42",
+    "@types/node": "^18.19.44",
     "c8": "^8.0.1",
     "chai": "^4.5.0",
     "cheerio": "1.0.0-rc.12",
@@ -41,7 +41,7 @@
     "eslint-config-hexo": "^5.0.0",
     "hexo": "^7.3.0",
     "hexo-renderer-marked": "^6.3.0",
-    "mocha": "^10.7.0",
+    "mocha": "^10.7.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
