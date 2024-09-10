@@ -154,9 +154,9 @@ export function pTag([cls, text]: str2) {
  * content
  * {% endfold %}
  */
-export function foldTag([title, open]: str2) {
+export function foldTag([title, open]: str2, content) {
   _fold = true;
-  return htmlTag('details', {open}, htmlTag('summary', {}, title, false), false);
+  return htmlTag('details', {open}, htmlTag('summary', {}, title, false) + content, false);
 }
 
 /**
