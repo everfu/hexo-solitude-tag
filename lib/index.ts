@@ -275,11 +275,11 @@ export function checkboxTag([style, checked, content]: str3 | str2) {
     content = checked;
     checked = 'checked';
   }
-  return htmlTag('div', {class: 'checkbox'}, htmlTag('input', {
-    type: 'checkbox',
-    checked,
-    style
-  }, content, false), false);
+  return htmlTag('div', {class: 'checkbox ' + style},
+    `<input type="checkbox" ${ checked==='unchecked' ? '' : `checked=${checked}` }/>${
+    // @ts-ignore
+    hexo.render.renderSync({text: content, engine: 'markdown'}).split('\n').join('')
+    }`, false);
 }
 
 /**
@@ -294,11 +294,11 @@ export function radioTag([style, checked, content]: str3 | str2) {
     content = checked;
     checked = 'checked';
   }
-  return htmlTag('div', {class: 'checkbox'}, htmlTag('input', {
-    type: 'radio',
-    checked,
-    style
-  }, content, false), false);
+  return htmlTag('div', {class: 'checkbox ' + style},
+    `<input type="radio" ${ checked==='unchecked' ? '' : `checked=${checked}` }/>${
+    // @ts-ignore
+    hexo.render.renderSync({text: content, engine: 'markdown'}).split('\n').join('')
+    }`, false);
 }
 
 /**
