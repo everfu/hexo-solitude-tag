@@ -156,7 +156,11 @@ export function pTag([cls, text]: str2) {
  */
 export function foldTag([title, open]: str2, content) {
   _fold = true;
-  return htmlTag('details', {open}, htmlTag('summary', {}, title, false) + content, false);
+  // @ts-ignore
+  return htmlTag('details', { open }, htmlTag('summary', {}, title, false) + hexo.render.renderSync({
+    text: content,
+    engine: 'markdown'
+  }).trim(), false);
 }
 
 /**
@@ -271,11 +275,11 @@ export function checkboxTag([style, checked, content]: str3 | str2) {
     content = checked;
     checked = 'checked';
   }
-  return htmlTag('div', {class: 'checkbox'}, htmlTag('input', {
-    type: 'checkbox',
-    checked,
-    style
-  }, content, false), false);
+  return htmlTag('div', {class: 'checkbox ' + style},
+    `<input type="checkbox" ${ checked==='unchecked' ? '' : `checked=${checked}` }/>${
+    // @ts-ignore
+    hexo.render.renderSync({text: content, engine: 'markdown'}).split('\n').join('')
+    }`, false);
 }
 
 /**
@@ -290,11 +294,11 @@ export function radioTag([style, checked, content]: str3 | str2) {
     content = checked;
     checked = 'checked';
   }
-  return htmlTag('div', {class: 'checkbox'}, htmlTag('input', {
-    type: 'radio',
-    checked,
-    style
-  }, content, false), false);
+  return htmlTag('div', {class: 'checkbox ' + style},
+    `<input type="radio" ${ checked==='unchecked' ? '' : `checked=${checked}` }/>${
+    // @ts-ignore
+    hexo.render.renderSync({text: content, engine: 'markdown'}).split('\n').join('')
+    }`, false);
 }
 
 /**
@@ -312,7 +316,7 @@ export function noteTag([cls, icon]: str2 | string, content: string) {
     cls += ' no-icon';
   }
   // @ts-ignore
-  return htmlTag('div', {class: `note ${cls}`}, (icon ? htmlTag('i', {class: `solitude ${icon}`}, '', false) : '') + hexo.render.renderSync({
+  return htmlTag('div', {class: `note ${cls} modern`}, (icon ? htmlTag('i', {class: `solitude ${icon}`}, '', false) : '') + hexo.render.renderSync({
     text: content,
     engine: 'markdown'
   }).trim(), false);
@@ -432,7 +436,7 @@ export function gitlabTag([repo]: str) {
   </div>
   <img class='lang-${id} repo-language no-lightbox' />
   <script>
-    fetch('https://gitlab.com/api/v4/projects/${repo}')
+    fetch('https://gitlab.com/api/v4/projects/${encodeURIComponent(repo)}')
       .then(res => res.json())
       .then(data => {
         document.querySelector('.name-${id}').innerText = data.name;
