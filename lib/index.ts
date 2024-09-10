@@ -436,7 +436,7 @@ export function gitlabTag([repo]: str) {
   </div>
   <img class='lang-${id} repo-language no-lightbox' />
   <script>
-    fetch('https://gitlab.com/api/v4/projects/${repo}')
+    fetch('https://gitlab.com/api/v4/projects/${encodeURIComponent(repo)}')
       .then(res => res.json())
       .then(data => {
         document.querySelector('.name-${id}').innerText = data.name;
