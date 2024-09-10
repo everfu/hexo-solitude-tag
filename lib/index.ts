@@ -156,7 +156,11 @@ export function pTag([cls, text]: str2) {
  */
 export function foldTag([title, open]: str2, content) {
   _fold = true;
-  return htmlTag('details', {open}, htmlTag('summary', {}, title, false) + content, false);
+  // @ts-ignore
+  return htmlTag('details', { open }, htmlTag('summary', {}, title, false) + hexo.render.renderSync({
+    text: content,
+    engine: 'markdown'
+  }).trim(), false);
 }
 
 /**
