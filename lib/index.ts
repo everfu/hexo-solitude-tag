@@ -47,6 +47,8 @@ hexo.extend.tag.register('gitee', giteeTag);
 hexo.extend.tag.register('gitea', giteaTag);
 // @ts-ignore
 hexo.extend.tag.register('bubble', bubbleTag);
+// @ts-ignore
+hexo.extend.tag.register('keyboard', keyboardTag);
 
 
 let _span = false;
@@ -61,6 +63,7 @@ let _media = false;
 let _button = false;
 let _repo = false;
 let _bubble = false;
+let _keyboard = false;
 // @ts-ignore
 hexo.extend.filter.register('stylus:renderer', (style: any) => {
   style
@@ -75,7 +78,8 @@ hexo.extend.filter.register('stylus:renderer', (style: any) => {
     .define('$tag_media', _media)
     .define('$tag_button', _button)
     .define('$tag_repo', _repo)
-    .define('$tag_bubble', _repo)
+    .define('$tag_bubble', _bubble)
+    .define('$tag_keyboard', _keyboard)
     .import(path.join(__dirname, 'css', 'index.styl'));
 });
 
@@ -550,4 +554,32 @@ export function bubbleTag([content, notation, color]: str3) {
     return htmlTag('span', { class: 'bubble-content' }, content, false) + htmlTag('span', { class: 'bubble-notation' },
       htmlTag('span', { class: `bubble-item bg-${color}` }, notation, false), false)
   }
+}
+
+
+export function keyboardTag([key]: str) {
+  _keyboard = true
+  key = key.toLowerCase()
+  switch (key) {
+    case "enter":
+      key += "↵";
+      break;
+    case "shift":
+      key += "⇧";
+      break;
+    case "windows":
+    case "window":
+    case "win":
+      key = "win"
+    case "command":
+      key += "⌘";
+      break;
+    case "option":
+      key += "⌥";
+      break;
+    default:
+      break;
+  }
+  key = key[0].toUpperCase() + key.slice(1)
+  return htmlTag("span", {class: "keyboard"}, key, false)
 }
