@@ -32,4 +32,4 @@ $ npm i hexo-solitude-tag
 
 # LICENSE
 
-[MIT](./LICENSE) License @ 204-PRESENT [Everfu](https://github.com/everfu)
+[MIT](./LICENSE) License @ 204-PRESENT [伍十七](https://github.com/everfu)
