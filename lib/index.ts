@@ -45,6 +45,12 @@ hexo.extend.tag.register('gitlab', gitlabTag);
 hexo.extend.tag.register('gitee', giteeTag);
 // @ts-ignore
 hexo.extend.tag.register('gitea', giteaTag);
+// @ts-ignore
+hexo.extend.tag.register('bubble', bubbleTag);
+// @ts-ignore
+hexo.extend.tag.register('keyboard', keyboardTag);
+// @ts-ignore
+hexo.extend.tag.register('spoiler', spoilerTag);
 
 
 let _span = false;
@@ -58,6 +64,9 @@ let _timeline = false;
 let _media = false;
 let _button = false;
 let _repo = false;
+let _bubble = false;
+let _keyboard = false;
+let _spoiler = false;
 // @ts-ignore
 hexo.extend.filter.register('stylus:renderer', (style: any) => {
   style
@@ -72,6 +81,9 @@ hexo.extend.filter.register('stylus:renderer', (style: any) => {
     .define('$tag_media', _media)
     .define('$tag_button', _button)
     .define('$tag_repo', _repo)
+    .define('$tag_bubble', _bubble)
+    .define('$tag_keyboard', _keyboard)
+    .define('$tag_spoiler', _spoiler)
     .import(path.join(__dirname, 'css', 'index.styl'));
 });
 
@@ -521,3 +533,75 @@ export function giteaTag([server, repo]: str2) {
   `
   , false);
 }
+
+/**
+ * Bubble notation tag
+ *
+ * Syntax:
+ * {% bubble content notation background-color %}
+ */
+export function bubbleTag([content, notation, color]: str3) {
+  _bubble = true;
+  if (typeof color === 'undefined')
+    color = 'blue';
+  if (color.startsWith('#')) {
+    const r = parseInt(color.slice(1, 3), 16) / 255;
+    const g = parseInt(color.slice(3, 5), 16) / 255;
+    const b = parseInt(color.slice(5, 7), 16) / 255;
+    const brightness = 0.5474 * Math.sqrt((r ** 2) + (1.5 * g) ** 2 + (0.6 * b) ** 2); // 亮度计算近似公式
+    return htmlTag('span', { class: 'bubble-content' }, content, false) + htmlTag('span', { class: 'bubble-notation' },
+      htmlTag('span', {
+        class: 'bubble-item',
+        style: `background-color:${color}; color: ${brightness > 0.5 ? 'var(--efu-black)' : 'var(--efu-white)'}`
+      }, notation, false), false)
+  } else {
+    return htmlTag('span', { class: 'bubble-content' }, content, false) + htmlTag('span', { class: 'bubble-notation' },
+      htmlTag('span', { class: `bubble-item bg-${color}` }, notation, false), false)
+  }
+}
+
+/**
+ * Keyboard tag
+ *
+ * Syntax:
+ * {% keyboard key %}
+ */
+export function keyboardTag([key]: str) {
+  _keyboard = true
+  key = key.toLowerCase()
+  switch (key) {
+    case "enter":
+      key += "↵";
+      break;
+    case "shift":
+      key += "⇧";
+      break;
+    case "windows":
+    case "window":
+    case "win":
+      key = "win"
+    case "command":
+      key += "⌘";
+      break;
+    case "option":
+      key += "⌥";
+      break;
+    default:
+      break;
+  }
+  key = key[0].toUpperCase() + key.slice(1)
+  return htmlTag("span", {class: "keyboard"}, key, false)
+}
+
+/**
+ * Spoiler text tag
+ *
+ * Syntax:
+ * {% spoiler style content %}
+ */
+export function spoilerTag([style, content]: str2) {
+  _spoiler = true
+  // @ts-ignore
+  return htmlTag("span", { class: `spoiler ${style}-text` }, content, false)
+}
+
