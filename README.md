@@ -30,6 +30,8 @@ $ npm i hexo-solitude-tag
 {% youtube video_id [type] [cookie] %}
 ```
 
+> Documentation: [伍十七的博客](https://blog.everfu.cn/p/8f9926b7.html)
+
 # LICENSE
 
 [MIT](./LICENSE) License @ 204-PRESENT [伍十七](https://github.com/everfu)
