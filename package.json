@@ -1,6 +1,6 @@
 {
   "name": "hexo-solitude-tag",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Plugin tags used only for Solitude themes",
   "main": "dist/index.js",
   "scripts": {
