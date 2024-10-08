@@ -20,8 +20,6 @@ hexo.extend.tag.register('videos', videosTag, {ends: true});
 // @ts-ignore
 hexo.extend.tag.register('link', linkTag);
 // @ts-ignore
-hexo.extend.tag.register('label', labelTag);
-// @ts-ignore
 hexo.extend.tag.register('img', imgTag);
 // @ts-ignore
 hexo.extend.tag.register('inline_img', inlineImgTag);
@@ -56,7 +54,6 @@ hexo.extend.tag.register('spoiler', spoilerTag);
 let _span = false;
 let _fold = false;
 let _link = false;
-let _label = false;
 let _inline_img = false;
 let _check = false;
 let _note = false;
@@ -73,7 +70,6 @@ hexo.extend.filter.register('stylus:renderer', (style: any) => {
     .define('$tag_span', _span)
     .define('$tag_fold', _fold)
     .define('$tag_link', _link)
-    .define('$tag_label', _label)
     .define('$tag_inline_img', _inline_img)
     .define('$tag_checkbox', _check)
     .define('$tag_note', _note)
@@ -91,7 +87,6 @@ type str = [string];
 type str2 = [string, string];
 type strbool = [string, boolean];
 type str2bool = [string, string, boolean];
-type strnum = [string, number];
 type str3 = [string, string, string];
 
 /**
@@ -212,8 +207,8 @@ export function videoTag([src]: str) {
  *  {% video src %}
  * {% endvideos %}
  */
-export function videosTag([cls, col]: strnum, content: string) {
-  return htmlTag('div', {class: `videos${cls}`, col: col}, content, false);
+export function videosTag([col]: str, content: string) {
+  return htmlTag('div', {class: 'videos', col: col}, content, false);
 }
 
 /**
@@ -241,17 +236,6 @@ export function linkTag([title, subtitle, link]: str3) {
     class: 'tag-link',
     href: link, target: isLocal ? '_self' : '_blank'
   }, bottom, false);
-}
-
-/**
- * Label tag
- *
- * Syntax:
- * {% label text %}
- */
-export function labelTag([text, cls]: str2) {
-  _label = true;
-  return htmlTag('span', {class: `hl-label bg-${cls}`}, text, false);
 }
 
 /**
