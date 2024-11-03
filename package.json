@@ -34,6 +34,7 @@
     "@types/chai": "^4.3.17",
     "@types/mocha": "^10.0.7",
     "@types/node": "^18.19.44",
+    "@types/stylus": "^0.48.43",
     "c8": "^8.0.1",
     "chai": "^4.5.0",
     "cheerio": "1.0.0-rc.12",
@@ -42,6 +43,7 @@
     "hexo": "^7.3.0",
     "hexo-renderer-marked": "^6.3.0",
     "mocha": "^10.7.3",
+    "stylus": "^0.64.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },

@@ -1,5 +1,6 @@
 import path from 'node:path';
 import {htmlTag} from 'hexo-util';
+import stylus from 'stylus';
 
 // @ts-ignore
 hexo.extend.tag.register('youtube', youtubeTag);
@@ -65,8 +66,9 @@ let _bubble = false;
 let _keyboard = false;
 let _spoiler = false;
 // @ts-ignore
-hexo.extend.filter.register('stylus:renderer', (style: any) => {
-  style
+hexo.extend.filter.register('after_render:css', (css, data) => {
+  if (!data.path.endsWith('source\\css\\index.styl')) return css;
+  const rendered_css = stylus('')
     .define('$tag_span', _span)
     .define('$tag_fold', _fold)
     .define('$tag_link', _link)
@@ -80,7 +82,9 @@ hexo.extend.filter.register('stylus:renderer', (style: any) => {
     .define('$tag_bubble', _bubble)
     .define('$tag_keyboard', _keyboard)
     .define('$tag_spoiler', _spoiler)
-    .import(path.join(__dirname, 'css', 'index.styl'));
+    .import(path.join(__dirname, 'css', 'index.styl'))
+    .render();
+  return css.replace('@charset "UTF-8";', `@charset "UTF-8";\n${rendered_css}`);
 });
 
 type str = [string];
