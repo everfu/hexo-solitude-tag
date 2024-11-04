@@ -612,7 +612,6 @@ export function cardTag(args: str9): string {
   }
 
   const [name = '未知', url = '', bg = '', star = '0', text = '此作品博主暂未作出评价', icon = '', tag = '', w = '200px', h = '275px'] = args.join(' ').split(',').map(arg => arg.trim());
-
   const backgroundStyle = bg ? `background-image: url(${bg});` : 'background-color: #333;';
   const starHtml = toStar(Number(star));
 
