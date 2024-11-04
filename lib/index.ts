@@ -49,7 +49,8 @@ hexo.extend.tag.register('bubble', bubbleTag);
 hexo.extend.tag.register('keyboard', keyboardTag);
 // @ts-ignore
 hexo.extend.tag.register('spoiler', spoilerTag);
-
+// @ts-ignore
+hexo.extend.tag.register('card', cardTag);
 
 let _span = false;
 let _fold = false;
@@ -64,6 +65,7 @@ let _repo = false;
 let _bubble = false;
 let _keyboard = false;
 let _spoiler = false;
+let _card = false;
 // @ts-ignore
 hexo.extend.filter.register('stylus:renderer', (style: any) => {
   style
@@ -80,6 +82,7 @@ hexo.extend.filter.register('stylus:renderer', (style: any) => {
     .define('$tag_bubble', _bubble)
     .define('$tag_keyboard', _keyboard)
     .define('$tag_spoiler', _spoiler)
+    .define('$tag_card', _card)
     .import(path.join(__dirname, 'css', 'index.styl'));
 });
 
@@ -88,6 +91,7 @@ type str2 = [string, string];
 type strbool = [string, boolean];
 type str2bool = [string, string, boolean];
 type str3 = [string, string, string];
+type str9 = [string, string, string, string, string, string, string, string, string];
 
 /**
  * Bilibili video tag
@@ -590,3 +594,41 @@ export function spoilerTag([style, content]: str2) {
   return htmlTag('span', { class: `spoiler ${style}-text` }, content, false);
 }
 
+/**
+ * Card tag
+ *
+ * Syntax:
+ * {% card name,url,bg,star,text,icon,tag,w,h %}
+ */
+export function cardTag(args: str9): string {
+  _card = true;
+
+  // 分数转成星星
+  function toStar(num: number): string {
+    const fullStars = Math.floor(num);
+    const halfStar = num - fullStars !== 0 ? '<i class="fa-solid fa-star-half-alt"></i>' : '';
+    const emptyStars = 5 - Math.ceil(num);
+    return '<i class="fa-solid fa-star"></i>'.repeat(fullStars) + halfStar + '<i class="fa-regular fa-star"></i>'.repeat(emptyStars);
+  }
+
+  const [name = '未知', url = '', bg = '', star = '0', text = '此作品博主暂未作出评价', icon = '', tag = '', w = '200px', h = '275px'] = args.join(' ').split(',').map(arg => arg.trim());
+
+  const backgroundStyle = bg ? `background-image: url(${bg});` : 'background-color: #333;';
+  const starHtml = toStar(Number(star));
+
+  return htmlTag('div', {
+    title: name,
+    referrerPolicy: 'no-referrer',
+    class: 'card_box',
+    style: `${backgroundStyle} width:${w}; height:${h};`
+  },
+  htmlTag('div', { class: 'card_mask' },
+    htmlTag('span', {}, text, false)
+    + (url ? htmlTag('a', { href: url }, '查看详情', false) : ''), false)
+  + htmlTag('div', { class: 'card_top' },
+    htmlTag('i', { class: icon }, '', false)
+    + htmlTag('span', {}, tag, false), false)
+  + htmlTag('div', { class: 'card_content' },
+    htmlTag('span', {}, name, false)
+    + htmlTag('div', {}, starHtml, false), false), false);
+}
