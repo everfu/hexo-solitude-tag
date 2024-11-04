@@ -69,7 +69,7 @@ let _spoiler = false;
 let _card = false;
 // @ts-ignore
 hexo.extend.filter.register('after_render:css', (css, data) => {
-  if (!data.path.endsWith('source\\css\\index.styl')) return css;
+  if (!data.path.endsWith(path.join('source', 'css', 'index.styl'))) return css;
   const rendered_css = stylus('')
     .define('$tag_span', _span)
     .define('$tag_fold', _fold)
@@ -84,6 +84,7 @@ hexo.extend.filter.register('after_render:css', (css, data) => {
     .define('$tag_bubble', _bubble)
     .define('$tag_keyboard', _keyboard)
     .define('$tag_spoiler', _spoiler)
+    .define('$tag_card', _card)
     .import(path.join(__dirname, 'css', 'index.styl'))
     .render();
   return css.replace('@charset "UTF-8";', `@charset "UTF-8";\n${rendered_css}`);
@@ -571,7 +572,7 @@ export function keyboardTag([key]: str) {
     case 'window':
     case 'win':
       key = 'win';
-      break;
+      // fallthrough
     case 'command':
       key += '⌘';
       break;
