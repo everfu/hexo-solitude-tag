@@ -447,7 +447,7 @@ export function gitlabTag([repo]: str) {
         document.querySelector('.desc-${id}').innerText = data.description;
         document.querySelector('.star-${id}').innerText = data.star_count;
         document.querySelector('.fork-${id}').innerText = data.forks_count;
-        document.querySelector('.lang-${id}').src = 'https://skillicons.dev/icons?i=' + data.language.toLowerCase();
+        document.querySelector('.lang-${id}').src = 'https://skillicons.dev/icons?i=' + data.topics[data.topics.length - 1].toLowerCase().replace('.','');
     });
   </script>
   `
