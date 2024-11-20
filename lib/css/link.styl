@@ -1,11 +1,11 @@
-#article-container
+.article-container
   a.tag-link
     background var(--efu-secondbg)
     border-radius 8px !important
     display flex
     border var(--style-border)
     flex-direction column
-    padding 0.5rem 1rem
+    padding 0.5rem 1rem !important
     border-width 1px
     margin 1rem 0
 
@@ -15,6 +15,7 @@
 
       .tag-link-tips
         color var(--efu-white)
+        border-bottom-color var(--efu-white)
 
       i
         opacity 1
@@ -57,3 +58,4 @@
     font-size 12px
     color var(--efu-gray)
     font-weight 400
+    transition .3s
