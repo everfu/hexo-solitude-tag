@@ -320,7 +320,7 @@ export function noteTag([cls, icon]: str2 | string, content: string) {
     cls += ' no-icon';
   }
   // @ts-ignore
-  return htmlTag('div', {class: `note ${cls} modern`}, (icon ? htmlTag('i', {class: `solitude ${icon}`}, '', false) : '') + hexo.render.renderSync({
+  return htmlTag('div', {class: `note ${cls}`}, (icon ? htmlTag('i', {class: `solitude ${icon}`}, '', false) : '') + hexo.render.renderSync({
     text: content,
     engine: 'markdown'
   }).trim(), false);
