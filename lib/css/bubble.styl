@@ -1,33 +1,42 @@
+.bubble 
+  display inline-flex
+  position relative
+
 .bubble-content
   display inline-block
   color var(--efu-lighttext)
   font-weight bold
-  transition: all 0.2s ease-in-out
-  text-shadow: var(--efu-shadow-theme)
-  border-bottom: 2px dotted var(--efu-lighttext);
+  transition all 0.2s ease-in-out
+  text-shadow var(--efu-shadow-theme)
+  border-bottom 2px dotted var(--efu-lighttext);
   &:hover
-    transition: all 0.2s ease-in-out
-    color: var(--efu-hovertext)
+    transition all 0.2s ease-in-out
+    color var(--efu-hovertext)
 
     & + .bubble-notation
-      .bubble-item
-        transform translate(-40px, 10px) rotateX(0deg)
-        transition: all 0.5s ease-in-out
-        opacity: 1
+        top calc(100% + 0.5em)
+        transition all 0.5s ease-in-out
+        opacity 1
 
 .bubble-notation
-  display: inline-block
+    display flex
+    position absolute
+    top 0
+    left 50%
+    transform translateX(-50%)
+    padding 0.3rem 0.6rem
+    opacity 0
+    pointer-events none
+    transition all 0.3s
+    border-radius 12px
 
-.bubble-item
-  transition: all 0.5s ease-in-out
-  opacity 0
-  z-index: 99
-  display flex
-  position absolute
-  transform translate(-40px, 10px) rotateX(90deg)
-  width auto
-  height auto
-  max-width 400px
-  overflow hidden
-  padding 20px 10px 10px 10px
-  clip-path polygon(5px 10px,20px 10px,30px 0,40px 10px,calc(100% - 5px) 10px,100% 15px,100% calc(100% - 5px),calc(100% - 5px) 100%,5px 100%,0 calc(100% - 5px),0 15px,5px 10px)
+    &::before
+      content ''
+      position absolute
+      top -70%
+      left 50%
+      transform translateX(-50%) translateY(100%)
+      border 0.5em solid transparent
+      border-bottom-color var(--efu-lighttext)
+      transition all 0.3s
+      transition-property border-color transform

@@ -548,8 +548,8 @@ export function bubbleTag([content, notation, color]: str3) {
         style: `background-color:${color}; color: ${brightness > 0.5 ? 'var(--efu-black)' : 'var(--efu-white)'}`
       }, notation, false), false);
   }
-  return htmlTag('span', { class: 'bubble-content' }, content, false) + htmlTag('span', { class: 'bubble-notation' },
-    htmlTag('span', { class: `bubble-item bg-${color}` }, notation, false), false);
+  return htmlTag('div', { class: 'bubble'}, htmlTag('span', { class: 'bubble-content' }, content, false) + htmlTag('span', { class: `bubble-notation bg-${color}` },
+    notation, false), false);
 }
 
 /**
@@ -583,7 +583,7 @@ export function keyboardTag([key]: str) {
       break;
   }
   key = key[0].toUpperCase() + key.slice(1);
-  return htmlTag('span', {class: 'keyboard'}, key, false);
+  return htmlTag('span', {class: 'keyboard-tag'}, key, false);
 }
 
 /**
