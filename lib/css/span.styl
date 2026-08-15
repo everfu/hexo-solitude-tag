@@ -1,34 +1,33 @@
-.article-container
-  p,span
-    &.left
-      text-align left
+.article-container .solitude-tag.tag-text
+  &.left
+    text-align left
+  &.center
+    text-align center
+  &.right
+    text-align right
+  &.small
+    font-size .78rem
+  &.h1
+    font-size clamp(2rem, 5vw, 2.5rem)
+    line-height 1.15
+  &.h2
+    font-size clamp(1.5rem, 4vw, 1.75rem)
+    line-height 1.2
+  &.h3
+    font-size 1.375rem
+    line-height 1.25
+  &.h4
+    font-size 1.125rem
+    line-height 1.35
+  &.large
+    font-size 1.5rem
+    line-height 1.3
+  &.huge
+    font-size clamp(2.5rem, 8vw, 4rem)
+    line-height 1.1
+  &.ultra
+    font-size clamp(3rem, 12vw, 6rem)
+    line-height 1
 
-    &.center
-      text-align center
-
-    &.right
-      text-align right
-
-    &.small
-      font-size .5rem
-
-    &.h1
-      font-size 2.5rem
-
-    &.h2
-      font-size 1.625rem
-
-    &.h3
-      font-size 1.375rem
-
-    &.h4
-      font-size 1.125rem
-
-    &.large
-      font-size 1.5rem
-
-    &.huge
-      font-size 4rem
-
-    &.ultra
-      font-size 6rem
+.article-container p.solitude-tag.tag-paragraph
+  margin var(--st-space-3) 0

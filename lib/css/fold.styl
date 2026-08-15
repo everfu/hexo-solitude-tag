@@ -1,65 +1,98 @@
-details
-  display: block
-  position: relative
-  margin-bottom: 1rem
-  min-height: 54px
-  overflow: hidden
-  border-radius: 12px
-  border: var(--style-border)
-  transition: border .3s
-details:hover
-  border: var(--style-border-hover-always)
-details summary
-  position: absolute
-  padding: .5rem 1rem
-  background: var(--efu-card-bg)
-  margin: 0
-  transition: .3s
-  box-shadow: var(--efu-shadow-border)
-  left: 0
-  width: 100%
-  font-weight: 700
-  white-space: nowrap
-  overflow: hidden
-  text-overflow: ellipsis
-details>:nth-child(2)
-  margin-top: calc(54px + 1rem)!important
-details[open] summary
-  background: var(--efu-lighttext)
-  color: var(--efu-card-bg)
-details summary::before
-  content: ''
-  padding: 4px
-details summary:hover
-  cursor: pointer
-  background: var(--efu-lighttext)
-  color: var(--efu-card-bg)
-  transition: .3s
-  box-shadow: var(--efu-shadow-main)
-details summary:focus
-  outline: 0
-details summary::marker
-  color: var(--efu-lighttext)
-  transition: .3s
-details[open] summary::marker
-  color: var(--efu-card-bg)
-details summary:hover::marker
-  color: var(--efu-card-bg)
-details[open]
-  border-radius: 12px
-  border: var(--style-border-hover-always)
-  padding: 0 1.5rem
-  background: var(--efu-card-bg)
-details summary:hover:after
-  position: absolute
-  content: '+'
-  text-align: center
-  top: calc(50% - 2px)
-  transform: translateY(-50%)
-  right: 16px
-  line-height: 1
-details[open]>summary:hover:after
-  content: '-'
+.article-container details.solitude-tag.tag-fold
+  display block
+  margin var(--st-space-4) 0
+  overflow clip
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background var(--st-surface)
+  box-shadow var(--st-shadow)
+  transition border-color var(--st-motion), box-shadow var(--st-motion)
+
+  &:hover,
+  &:focus-within
+    border-color var(--st-accent)
+
+  &[open]
+    box-shadow var(--st-shadow-hover)
+
+    .tag-fold-summary
+      border-bottom 1px solid var(--st-border)
+      background var(--st-accent-soft)
+
+    .tag-fold-icon::after
+      transform rotate(180deg)
+
+  .tag-fold-summary
+    position static
+    display flex
+    align-items center
+    justify-content space-between
+    gap var(--st-space-3)
+    width 100%
+    min-height 52px
+    margin 0
+    padding var(--st-space-3) var(--st-space-4)
+    border 0
+    background var(--st-surface)
+    box-shadow none
+    color var(--st-text)
+    font-size .92rem
+    font-weight 700
+    cursor pointer
+    list-style none
+    transition background var(--st-motion), color var(--st-motion)
+
+    &::-webkit-details-marker
+      display none
+
+    &:hover
+      background var(--st-surface-muted)
+      color var(--st-accent)
+
+    &:focus-visible
+      outline 3px solid var(--st-accent-soft)
+      outline-offset -3px
+
+  .tag-fold-title
+    min-width 0
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+
+  .tag-fold-icon
+    position relative
+    flex 0 0 28px
+    width 28px
+    height 28px
+    border-radius 50%
+    background var(--st-accent-soft)
+
+    &::before,
+    &::after
+      content ''
+      position absolute
+      top 50%
+      left 50%
+      width 10px
+      height 2px
+      border-radius 2px
+      background var(--st-accent)
+      transform translate(-50%, -50%)
+      transition transform var(--st-motion)
+
+    &::after
+      transform translate(-50%, -50%) rotate(90deg)
+
+  .tag-fold-content
+    padding var(--st-space-4)
+
+    > :first-child
+      margin-top 0 !important
+    > :last-child
+      margin-bottom 0 !important
+
 @media screen and (max-width: 768px)
-  details[open]
-    padding:0 16px
+  .article-container details.solitude-tag.tag-fold
+    .tag-fold-summary,
+    .tag-fold-content
+      padding-inline var(--st-space-3)

@@ -1,77 +1,79 @@
-$colors = {
-  info: #428bca,
-  danger: #d9534f,
-  primary: #6f42c1,
-  warning: #f0ad4e,
-  success: #5cb85c,
-  default: #777
+$note-colors = {
+  info: #3b82f6,
+  danger: #ef4444,
+  primary: #7c3aed,
+  warning: #f59e0b,
+  success: #22a06b,
+  default: #64748b,
+  blue: #3b82f6,
+  pink: #db5a91,
+  red: #ef4444,
+  purple: #7c3aed,
+  orange: #f97316,
+  green: #22a06b
 }
 
-.note
+.article-container aside.solitude-tag.note
+  --tag-note-color var(--st-accent)
   position relative
-  margin 0.5rem 0
-  padding .5rem
-  border-radius 3px
   display flex
-  align-items center
-  font-size 0.7rem
-  line-height 1
-  font-weight 400
-  text-align left
-  letter-spacing 0.6px
+  align-items flex-start
+  gap var(--st-space-3)
+  margin var(--st-space-4) 0
+  padding var(--st-space-3) var(--st-space-4)
+  overflow hidden
+  border 1px solid var(--st-border)
+  border-left 4px solid var(--tag-note-color)
+  border-radius var(--st-radius-md)
+  background var(--st-surface-muted)
+  color var(--st-text)
+  font-size .88rem
+  line-height 1.65
 
-  &:not(.no-icon)
-    padding-left .6rem
-
-  > i.solitude
-    margin-right 0.7rem
-    font-size large
-
-  a
-    color inherit !important
-
-    &:hover
-      color var(--efu-white) !important
-
-  for $color, $value in $colors
-    &.{$color}:not(.disabled)
-      border-left-color $value
-
-      &.modern
-        color $value
-
-      &:not(.simple)
-        background lighten($value, 75%)
-
-      > i
-        color $value
+  for $name, $value in $note-colors
+    &.{$name}
+      --tag-note-color $value
 
   &.simple
-    border-width 1px 1px 1px 5px
-    border-style solid
-    border-color #eee
-    border-image initial
+    background var(--st-surface)
 
   &.modern
-    background-color #f5f5f5
-    color #4c4948
-    border 1px solid transparent !important
+    border-left-width 1px
+    box-shadow var(--st-shadow)
 
   &.flat
-    border initial
-    border-image initial
-    border-left 5px solid #eee
-    background-color #f9f9f9
-    color #4c4948
+    border-top-color transparent
+    border-right-color transparent
+    border-bottom-color transparent
 
-  .article-container &
-    h2, h3, h4, h5, h6
-      margin-top 3px
-      margin-bottom 0
-      border-bottom initial
-      padding-top 0
+  &.disabled
+    --tag-note-color var(--st-text-muted)
 
-    p
-      margin 0
-      font-size inherit
-      letter-spacing normal
+  .note-icon
+    display flex
+    flex 0 0 30px
+    align-items center
+    justify-content center
+    width 30px
+    height 30px
+    border-radius 9px
+    background var(--st-surface)
+    color var(--tag-note-color)
+    font-size .92rem
+
+  > :not(.note-icon)
+    min-width 0
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p
+    margin 0 !important
+    color inherit
+    font-size inherit
+    line-height inherit
+
+  a
+    color var(--tag-note-color) !important

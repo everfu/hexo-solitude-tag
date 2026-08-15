@@ -1,23 +1,32 @@
-.spoiler
-  &.blur-text
-    filter blur(3px) !important
-    padding 5px
-    cursor default
-    user-select none !important
-    transition filter 0.4s ease 0.15s
+.article-container .solitude-tag.spoiler
+  display inline
+  border-radius 5px
+  cursor help
+  outline none
+  transition filter var(--st-motion), background var(--st-motion), color var(--st-motion)
 
-    &:hover, &:focus
-      user-select auto !important
-      filter blur(0) !important
+  &:focus-visible
+    outline 3px solid var(--st-accent-soft)
+    outline-offset 2px
+
+  &.blur-text
+    padding 0 3px
+    filter blur(4px)
+    user-select none
+
+    &:hover,
+    &:focus
+      filter blur(0)
+      user-select auto
 
   &.block-text
-    background-color var(--efu-fontcolor) !important
-    color transparent !important
-    cursor default
-    user-select none !important
-    transition background-color 0.4s ease 0.15s, color 0.3s ease 0.15s
+    padding 0 3px
+    background var(--st-text)
+    color transparent
+    user-select none
 
-    &:hover, &:focus
-      color inherit !important
-      user-select auto !important
-      background-color transparent !important
+    &:hover,
+    &:focus
+      background var(--st-accent-soft)
+      color inherit
+      user-select auto

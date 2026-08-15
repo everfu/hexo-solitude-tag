@@ -2,6 +2,7 @@ import Hexo from 'hexo';
 import { join } from 'path';
 const escapeSwigTag = str => str.replace(/{/g, '&#123;').replace(/}/g, '&#125;');
 import { youtubeTag } from '../lib';
+import {load} from 'cheerio';
 
 describe('Post', () => {
   const hexo = new Hexo(join(__dirname, 'post_test'));
@@ -34,6 +35,9 @@ describe('Post', () => {
     // indented youtube tag
     data.content.trim().should.contains(`<pre><code>${escapeSwigTag('{% youtube https://example.com/demo.mp4 %}')}\n</code></pre>`);
     // youtube tag
-    data.content.trim().should.contains('<div class="video-container"><iframe src="https://www.youtube.com/embed/https://example.com/sample.mp4" frameborder="0" loading="lazy" allowfullscreen></iframe></div>');
+    const $ = load(data.content);
+    $('.video-container.solitude-tag.tag-video-youtube').length.should.eql(1);
+    $('.video-container iframe').attr('title').should.eql('YouTube video player');
+    $('.video-container iframe').attr('src').should.eql('https://www.youtube.com/embed/https://example.com/sample.mp4');
   });
 });

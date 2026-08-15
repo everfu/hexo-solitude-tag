@@ -1,42 +1,62 @@
-.bubble 
-  display inline-flex
+.article-container .solitude-tag.bubble
   position relative
+  display inline-flex
+  max-width 100%
 
-.bubble-content
-  display inline-block
-  color var(--efu-lighttext)
-  font-weight bold
-  transition all 0.2s ease-in-out
-  text-shadow var(--efu-shadow-theme)
-  border-bottom 2px dotted var(--efu-lighttext);
-  &:hover
-    transition all 0.2s ease-in-out
-    color var(--efu-hovertext)
+  .bubble-content
+    color var(--st-accent)
+    font-weight 700
+    text-decoration underline dotted
+    text-decoration-thickness 1.5px
+    text-underline-offset 3px
+    cursor help
+    outline none
 
-    & + .bubble-notation
-        top calc(100% + 0.5em)
-        transition all 0.5s ease-in-out
-        opacity 1
+    &:focus-visible
+      border-radius 4px
+      outline 3px solid var(--st-accent-soft)
+      outline-offset 2px
 
-.bubble-notation
-    display flex
+    &:hover + .bubble-notation,
+    &:focus + .bubble-notation
+      opacity 1
+      visibility visible
+      transform translate(-50%, 0)
+
+  .bubble-notation
     position absolute
-    top 0
+    z-index 20
+    bottom auto
+    top calc(100% + 10px)
     left 50%
-    transform translateX(-50%)
-    padding 0.3rem 0.6rem
+    width max-content
+    max-width min(280px, 80vw)
+    padding 7px 10px
+    border 1px solid var(--st-border)
+    border-radius var(--st-radius-sm)
+    background var(--st-text)
+    box-shadow var(--st-shadow-hover)
+    color var(--st-surface)
+    font-size .78rem
+    font-weight 600
+    line-height 1.45
     opacity 0
+    visibility hidden
     pointer-events none
-    transition all 0.3s
-    border-radius 12px
+    transform translate(-50%, -4px)
+    transition opacity var(--st-motion), transform var(--st-motion), visibility var(--st-motion)
 
     &::before
       content ''
       position absolute
-      top -70%
+      bottom 100%
       left 50%
-      transform translateX(-50%) translateY(100%)
-      border 0.5em solid transparent
-      border-bottom-color var(--efu-lighttext)
-      transition all 0.3s
-      transition-property border-color transform
+      border 6px solid transparent
+      border-bottom-color var(--st-text)
+      transform translateX(-50%)
+
+    .bubble-item
+      display block
+      margin -7px -10px
+      padding 7px 10px
+      border-radius var(--st-radius-sm)

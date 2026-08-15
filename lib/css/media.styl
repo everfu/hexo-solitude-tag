@@ -1,51 +1,92 @@
-audio,video
-  border-radius: 4px
-  max-width: 100%
-video
-  z-index: 1
-  transition .3s
-  &:hover
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.24), 0 8px 16px 0px rgba(0, 0, 0, 0.24)
-
-div.video
-  line-height: 0
-  text-align: center
-
-div.videos
-  max-width: "calc(100% + 2 * %s)" % 4px
-  display: flex
-  flex-wrap: wrap
-  justify-content: flex-start
-  align-items: flex-end
-  margin: 1em 0 - 4px
-  .video,iframe
-    width: 100%
-    margin: 4px
+.article-container .solitude-tag.video-container
+  position relative
+  display block
+  width 100%
+  aspect-ratio 16 / 9
+  margin var(--st-space-4) 0
+  overflow hidden
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background #0d0e12
+  box-shadow var(--st-shadow)
 
   iframe
-    border-radius: 4px
-    width: 100%
-    min-height: 300px
-  &.left
-    justify-content: flex-start
-  &.center
-    justify-content: center
-  &.right
-    justify-content: flex-end
-  &.stretch
-    align-items: stretch
+    display block
+    width 100%
+    height 100%
+    margin 0
+    border 0
+    border-radius 0
+
+.article-container .solitude-tag.tag-audio
+  display flex
+  align-items center
+  gap var(--st-space-3)
+  margin var(--st-space-4) 0
+  padding var(--st-space-3)
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background linear-gradient(135deg, var(--st-accent-soft), var(--st-surface) 55%)
+  box-shadow var(--st-shadow)
+
+  .tag-media-icon
+    display flex
+    flex 0 0 42px
+    align-items center
+    justify-content center
+    width 42px
+    height 42px
+    border-radius 50%
+    background var(--st-accent)
+    color var(--efu-white)
+
+  audio
+    width 100%
+    min-width 0
+    height 42px
+
+.article-container .solitude-tag.tag-video
+  display block
+  margin var(--st-space-4) 0
+  overflow hidden
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background #0d0e12
+  box-shadow var(--st-shadow)
+
+  video
+    display block
+    width 100%
+    max-width 100%
+    margin 0
+    border-radius 0
+
+.article-container .solitude-tag.tag-videos
+  display grid
+  grid-template-columns repeat(var(--tag-video-columns, 2), minmax(0, 1fr))
+  align-items start
+  gap var(--st-space-3)
+  margin var(--st-space-4) 0
+
   &[col='1']
-    .video,iframe
-      width: 100%
+    --tag-video-columns 1
   &[col='2']
-    .video,iframe
-      width: "calc(50% - 2 * %s)" % 4px
+    --tag-video-columns 2
   &[col='3']
-    .video,iframe
-      width: "calc(33.33% - 2 * %s)" % 4px
+    --tag-video-columns 3
   &[col='4']
-    .video,iframe
-      width: "calc(25% - 2 * %s)" % 4px
-[data-theme="dark"]
-  audio,video
-    filter brightness(0.7)
+    --tag-video-columns 4
+
+  > .tag-video
+    width 100%
+    margin 0
+
+@media screen and (max-width: 768px)
+  .article-container .solitude-tag.tag-audio
+    padding var(--st-space-2)
+
+    .tag-media-icon
+      display none
+
+  .article-container .solitude-tag.tag-videos
+    grid-template-columns 1fr

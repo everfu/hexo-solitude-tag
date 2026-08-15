@@ -1,0 +1,54 @@
+.article-container .solitude-tag.series-items
+  display grid
+  gap var(--st-space-2)
+  margin var(--st-space-4) 0
+  padding var(--st-space-3)
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background var(--st-surface)
+  box-shadow var(--st-shadow)
+  list-style none
+  counter-reset series-item
+
+  li
+    display grid
+    grid-template-columns 28px minmax(0, 1fr)
+    align-items center
+    gap var(--st-space-2)
+    margin 0
+    padding var(--st-space-2)
+    border-radius var(--st-radius-sm)
+    counter-increment series-item
+    transition background var(--st-motion)
+
+    &::before
+      content counter(series-item)
+      position static
+      display flex
+      align-items center
+      justify-content center
+      width 28px
+      height 28px
+      margin 0
+      border 0
+      border-radius 9px
+      background var(--st-accent-soft)
+      color var(--st-accent)
+      font-size .72rem
+      font-weight 800
+
+    &:hover
+      background var(--st-surface-muted)
+
+  a
+    overflow hidden
+    border 0
+    color var(--st-text) !important
+    font-size .84rem
+    font-weight 650
+    text-decoration none !important
+    text-overflow ellipsis
+    white-space nowrap
+
+    &:hover
+      color var(--st-accent) !important

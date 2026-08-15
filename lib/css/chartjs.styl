@@ -1,0 +1,49 @@
+.article-container .solitude-tag.chartjs-container
+  display flex
+  flex-direction column
+  gap var(--st-space-3)
+  margin var(--st-space-4) 0
+  padding var(--st-space-4)
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background var(--st-surface)
+  box-shadow var(--st-shadow)
+
+  &.chartjs-abreast
+    flex-direction row
+    align-items center
+
+    .chartjs-desc
+      flex 0 1 34%
+
+    .chartjs-wrap
+      flex 1 1 66%
+
+  .chartjs-wrap
+    width 100%
+    max-width 100%
+    margin 0 auto
+
+  .chartjs-desc
+    min-width 0
+    padding var(--st-space-3)
+    border-radius var(--st-radius-md)
+    background var(--st-surface-muted)
+    color var(--st-text-muted)
+    font-size .82rem
+    line-height 1.65
+
+    > :first-child
+      margin-top 0 !important
+    > :last-child
+      margin-bottom 0 !important
+
+@media screen and (max-width: 768px)
+  .article-container .solitude-tag.chartjs-container
+    padding var(--st-space-3)
+
+    &.chartjs-abreast
+      flex-direction column
+
+    .chartjs-wrap
+      width 100% !important

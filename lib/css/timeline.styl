@@ -1,87 +1,117 @@
-div.timenode
+.article-container .solitude-tag.tag-timeline
+  --tag-timeline-color var(--st-accent)
   position relative
+  margin var(--st-space-4) 0
 
-  &:before,
-  &:after
-    content ''
-    z-index 1
-    position absolute
-    background var(--efu-theme)
-    width 2px
-    left 7px
+  &.red
+    --tag-timeline-color var(--efu-red)
+  &.green
+    --tag-timeline-color var(--efu-green)
+  &.blue
+    --tag-timeline-color var(--efu-blue)
+  &.purple
+    --tag-timeline-color var(--efu-purple)
+  &.orange
+    --tag-timeline-color var(--efu-orange)
 
-  &:before
-    top 0
-    height 6px
+  > .timeline-title
+    display block
+    margin-bottom var(--st-space-3)
+    color var(--st-text)
+    font-size 1.12rem
+    font-weight 750
 
-  &:after
-    top 26px
-    height 100%
-
-  &:last-child:after
-    height calc(100% - 26px - 16px)
-    border-bottom-left-radius 2px
-    border-bottom-right-radius 2px
-
-  .timeline-title
-    font-size 1.3rem
-    line-height 1.3rem
-    font-weight bold
-
-  .meta
+  .timeline-item
     position relative
-    line-height 32px
-    height 32px
-    left 27px
+    margin-left 10px
+    padding 0 0 var(--st-space-4) 28px
+    border-left 2px solid var(--st-border)
 
-    &:before,
-    &:after
+    &:last-child
+      padding-bottom 0
+      border-left-color transparent
+
+    &.headline
+      padding-bottom var(--st-space-3)
+      border-left-color transparent
+
+      .timeline-item-title::before
+        width 14px
+        height 14px
+
+      .item-circle
+        color var(--tag-timeline-color)
+        font-size 1.05rem
+
+  .timeline-item-title
+    position relative
+    min-height 24px
+    color var(--st-text)
+    font-size .9rem
+    font-weight 750
+    line-height 1.5
+
+    &::before
       content ''
       position absolute
-      top 8px
-      z-index 2
-      left -27px
-
-    &:before
-      background var(--efu-theme)
-      width 16px
-      height 16px
-      border-radius 8px
-
-    &:after
-      background var(--efu-card-bg)
-      margin-left 2px
-      margin-top 2px
+      top 5px
+      left -36px
       width 12px
       height 12px
-      border-radius 6px
-      transform scale(0.5)
-      transition all 0.28s ease
-
-    p
-      font-weight 500
-      margin 0
-
-  .body
-    margin 4px 0 16px 24px
-    padding 16px
-    border-radius 8px
-    background var(--blockquote-bg)
+      border 3px solid var(--st-surface)
+      border-radius 50%
+      background var(--tag-timeline-color)
+      box-shadow 0 0 0 2px var(--st-accent-soft)
 
     p
       margin 0 !important
 
-    p:first-child
-      margin-top 0
+  .timeline-item-content,
+  .body
+    margin-top var(--st-space-2)
+    padding var(--st-space-3) var(--st-space-4)
+    border 1px solid var(--st-border)
+    border-radius var(--st-radius-md)
+    background var(--st-surface)
+    box-shadow var(--st-shadow)
+    color var(--st-text-muted)
 
-    p:last-child
-      margin-bottom 0
+    > :first-child
+      margin-top 0 !important
+    > :last-child
+      margin-bottom 0 !important
 
-  &:hover
-    .meta
-      &:before
-        background var(--efu-theme)
+.article-container .solitude-tag.tag-timenode
+  position relative
+  margin-left 10px
+  padding 0 0 var(--st-space-4) 28px
+  border-left 2px solid var(--st-border)
 
-      &:after
-        background var(--efu-theme-op)
-        transform scale(1)
+  .meta
+    position relative
+    min-height 24px
+    color var(--st-text)
+    font-weight 750
+
+    &::before
+      content ''
+      position absolute
+      top 5px
+      left -36px
+      width 12px
+      height 12px
+      border 3px solid var(--st-surface)
+      border-radius 50%
+      background var(--st-accent)
+      box-shadow 0 0 0 2px var(--st-accent-soft)
+
+    p
+      margin 0 !important
+
+  .body
+    margin-top var(--st-space-2)
+    padding var(--st-space-3) var(--st-space-4)
+    border 1px solid var(--st-border)
+    border-radius var(--st-radius-md)
+    background var(--st-surface)
+    box-shadow var(--st-shadow)

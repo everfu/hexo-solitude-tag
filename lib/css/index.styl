@@ -1,117 +1,80 @@
-if $tag_span
-  @import "span.styl"
+@import "tokens.styl"
+@import "span.styl"
+@import "fold.styl"
+@import "media.styl"
+@import "link.styl"
+@import "flink.styl"
+@import "inline-img.styl"
+@import "checkbox.styl"
+@import "note.styl"
+@import "timeline.styl"
+@import "button.styl"
+@import "repo.styl"
+@import "bubble.styl"
+@import "keyboard.styl"
+@import "spoiler.styl"
+@import "card.styl"
+@import "hide.styl"
+@import "label.styl"
+@import "score.styl"
+@import "series.styl"
+@import "chartjs.styl"
 
-if $tag_fold
-  @import "fold.styl"
+.article-container .solitude-tag
+  &.red
+    color var(--efu-red)
+  &.green
+    color var(--efu-green)
+  &.blue
+    color var(--efu-blue)
+  &.yellow
+    color var(--efu-yellow)
+  &.pink
+    color var(--efu-pink)
+  &.purple
+    color var(--efu-purple)
+  &.orange
+    color var(--efu-orange)
 
-if $tag_media
-  @import "media.styl"
+  .bg-red
+    background var(--efu-red)
+    color var(--efu-white)
+  .bg-green
+    background var(--efu-green)
+    color var(--efu-white)
+  .bg-blue
+    background var(--efu-blue)
+    color var(--efu-white)
+  .bg-yellow
+    background var(--efu-yellow)
+    color var(--efu-black)
+  .bg-pink
+    background var(--efu-pink)
+    color var(--efu-white)
+  .bg-purple
+    background var(--efu-purple)
+    color var(--efu-white)
+  .bg-orange
+    background var(--efu-orange)
+    color var(--efu-white)
 
-if $tag_link
-  @import "link.styl"
+  &.block
+    display flex
+  &.center
+    margin-inline auto
+  &.right
+    margin-left auto
+  &.larger
+    min-height 48px
+    padding-inline var(--st-space-5)
+    font-size 1rem
 
-if $tag_inline_img
-  @import "inline-img.styl"
-
-if $tag_checkbox
-  @import "checkbox.styl"
-
-if $tag_note
-  @import "note.styl"
-
-if $tag_timeline
-  @import "timeline.styl"
-
-if $tag_button
-  @import "button.styl"
-
-if $tag_repo
-  @import "repo.styl"
-
-if $tag_bubble
-  @import "bubble.styl"
-
-if $tag_keyboard
-  @import "keyboard.styl"
-
-if $tag_spoiler
-  @import "spoiler.styl";
-
-if $tag_card
-  @import "card.styl"
-
-.red
-  color var(--efu-red)
-
-.green
-  color var(--efu-green)
-
-.blue
-  color var(--efu-blue)
-
-.yellow
-  color var(--efu-yellow)
-
-.pink
-  color var(--efu-pink)
-
-.purple
-  color var(--efu-purple)
-
-.orange
-  color var(--efu-orange)
-
-.bg-red
-  background-color var(--efu-red)
-  color var(--efu-white)
-
-.bg-green
-  background-color var(--efu-green)
-  color var(--efu-white)
-
-.bg-blue
-  background-color var(--efu-blue)
-  color var(--efu-white)
-
-.bg-yellow
-  background-color var(--efu-yellow)
-
-.bg-pink
-  background-color var(--efu-pink)
-  color var(--efu-white)
-
-.bg-purple
-  background-color var(--efu-purple)
-  color var(--efu-white)
-
-.bg-orange
-  background-color var(--efu-orange)
-  color var(--efu-white)
-
-.block
-  display block
-
-.center
-  margin 0 auto
-
-.right
-  margin-left auto
-
-.larger
-  font-size 1.5rem
-  margin 5px
-
-  i
-    transform scale(1.5)
-
-.video-container
-  display flex
-  justify-content center
-
-  iframe
-    width 80%
-    height 400px
-
-    @media screen and (max-width: 768px)
-      width 100%
-      height 200px
+@media (prefers-reduced-motion: reduce)
+  .article-container .solitude-tag,
+  .article-container .solitude-tag::before,
+  .article-container .solitude-tag::after,
+  .article-container .solitude-tag *
+    scroll-behavior auto !important
+    transition-duration .01ms !important
+    animation-duration .01ms !important
+    animation-iteration-count 1 !important

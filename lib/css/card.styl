@@ -1,73 +1,105 @@
-.card_box
-  display: flex
-  justify-content: space-between
-  flex-direction: column
-  background-position: center
-  background-size: cover
-  border-radius: 12px
-  position: relative
-  overflow: hidden
-  padding: 10px
-  color: #fff !important
-  margin: 10px auto
+.article-container .solitude-tag.card_box
+  position relative
+  display flex
+  flex-direction column
+  justify-content space-between
+  max-width 100%
+  margin 10px auto
+  padding 10px
+  overflow hidden
+  border-radius 12px
+  background-color #333
+  background-position center
+  background-size cover
+  color #fff !important
+
   &::after
-    content: ''
-    position: absolute
-    height: 100%
-    width: 100%
-    left: 0
-    top: 0
-    background: rgba(0,0,0,0.1)
-    transition: .5s
-    z-index: 0
-  &:hover
+    content ''
+    position absolute
+    z-index 0
+    inset 0
+    background rgba(0, 0, 0, .1)
+    pointer-events none
+    transition background .5s
+
+  &:hover,
+  &:focus-within
     .card_mask
-      opacity: 1
-      pointer-events: auto
+      opacity 1
+      pointer-events auto
+
   .card_top
-    display: flex
-    z-index: 1
-    align-items: center
-    justify-content: space-between
+    z-index 1
+    display flex
+    align-items center
+    justify-content space-between
+    gap 8px
+
+  .card_tag
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+
   .card_mask
-    position: absolute
-    pointer-events: none
-    z-index: 2
-    transition: .5s
-    opacity: 0
-    width: 100%
-    height: 100%
-    left: 0
-    top: 0
-    padding: 20px
-    background: #333
-    span
-      display: block
-      height: calc(100% - 40px)
-      overflow: auto
-    a
-      text-align: center
-      background: #fff
-      color: #333 !important
-      border-radius: 5px
-      border-bottom none !important
-      position: absolute
-      width: calc(100% - 40px)
-      bottom: 20px
-      left: 20px
-      &:hover
-        text-decoration: none !important
-        color: white !important
-        background: #49b1f5
+    position absolute
+    z-index 2
+    inset 0
+    width 100%
+    height 100%
+    padding 20px
+    background #333
+    color #fff
+    opacity 0
+    pointer-events none
+    transition opacity .5s
+
+  .card_description
+    display block
+    height calc(100% - 40px)
+    overflow auto
+
+  a.card_action
+    position absolute
+    bottom 20px
+    left 20px
+    width calc(100% - 40px)
+    padding 0
+    border 0
+    border-radius 5px
+    background #fff
+    color #333 !important
+    text-align center
+    text-decoration none !important
+
+    &:hover,
+    &:focus-visible
+      border-radius 5px
+      background #49b1f5
+      color #fff !important
+      text-decoration none !important
+
+    &:focus-visible
+      outline 3px solid rgba(73, 177, 245, .28)
+      outline-offset 2px
 
   .card_content
-    z-index: 1
-    span
-      font-size: 18px
-      font-weight: bold
+    z-index 1
+
+  .card_title
+    display block
+    overflow hidden
+    font-size 18px
+    font-weight 700
+    text-overflow ellipsis
+    white-space nowrap
+
+  .card_rating
+    display flex
+    gap 2px
 
 [data-theme='dark']
-  .card_box
-    color: #ddd !important
+  .article-container .solitude-tag.card_box
+    color #ddd !important
+
     &::after
-      background: rgba(0,0,0,0.4)
+      background rgba(0, 0, 0, .4)

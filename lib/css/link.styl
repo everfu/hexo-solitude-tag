@@ -1,61 +1,82 @@
-.article-container
-  a.tag-link
-    background var(--efu-secondbg)
-    border-radius 8px !important
-    display flex
-    border var(--style-border)
-    flex-direction column
-    padding 0.5rem 1rem !important
-    border-width 1px
-    margin 1rem 0
+.article-container a.solitude-tag.tag-link
+  display block
+  margin var(--st-space-4) 0
+  padding var(--st-space-3)
+  overflow hidden
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background var(--st-surface)
+  box-shadow var(--st-shadow)
+  color var(--st-text) !important
+  font-weight 400
+  text-decoration none !important
+  transition border-color var(--st-motion), box-shadow var(--st-motion), transform var(--st-motion)
 
-    &:hover
-      background var(--efu-main)
-      border var(--style-border-hover) !important
+  &:hover
+    border-color var(--st-accent)
+    box-shadow var(--st-shadow-hover)
+    transform translateY(-2px)
 
-      .tag-link-tips
-        color var(--efu-white)
-        border-bottom-color var(--efu-white)
+    .tag-link-bottom > i
+      color var(--st-accent)
+      transform translateX(3px)
 
-      i
-        opacity 1
-
-    i
-      transition .3s
-      margin-left auto
-      opacity .6
-
-    .tag-link-bottom
-      display flex
-      margin-top 0.5rem
-      align-items center
-      justify-content space-around
-
-      .tag-link-left
-        width 60px
-        min-width 60px
-        height 60px
-        background-size cover
-        border-radius 8px
-        background-color var(--efu-card-bg)
-        display flex
-        align-items center
-        justify-content center
-
-        i
-          padding 0
-          margin auto
-          font-size 24px
-          color var(--efu-fontcolor)
-
-      .tag-link-right
-        margin-left 1rem
-        max-width calc(100% - 76px - 1rem)
+  &:focus-visible
+    outline 3px solid var(--st-accent-soft)
+    outline-offset 3px
 
   .tag-link-tips
-    border-bottom var(--style-border)
-    padding-bottom 4px
-    font-size 12px
-    color var(--efu-gray)
-    font-weight 400
-    transition .3s
+    display inline-flex
+    align-items center
+    gap 6px
+    margin-bottom var(--st-space-2)
+    color var(--st-text-muted)
+    font-size .72rem
+    font-weight 600
+
+  .tag-link-bottom
+    display grid
+    grid-template-columns 48px minmax(0, 1fr) auto
+    align-items center
+    gap var(--st-space-3)
+
+    > i
+      color var(--st-text-muted)
+      transition color var(--st-motion), transform var(--st-motion)
+
+  .tag-link-left
+    display flex
+    align-items center
+    justify-content center
+    width 48px
+    height 48px
+    overflow hidden
+    border-radius var(--st-radius-md)
+    background var(--st-accent-soft)
+    color var(--st-accent)
+
+    i
+      margin 0
+      color inherit
+      font-size 1.1rem
+
+  .tag-link-right
+    min-width 0
+
+  .tag-link-title
+    overflow hidden
+    color var(--st-text)
+    font-size .94rem
+    font-weight 750
+    text-overflow ellipsis
+    white-space nowrap
+
+  .tag-link-sitename
+    display -webkit-box
+    margin-top 2px
+    overflow hidden
+    color var(--st-text-muted)
+    font-size .78rem
+    line-height 1.45
+    -webkit-box-orient vertical
+    -webkit-line-clamp 2

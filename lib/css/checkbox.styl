@@ -1,204 +1,121 @@
-.checkbox
+.article-container .solitude-tag.tag-choice
+  --tag-choice-color var(--efu-blue)
   display flex
-  align-items center
+  align-items flex-start
+  gap var(--st-space-2)
+  margin var(--st-space-2) 0
+  color var(--st-text)
+
+  &.red
+    --tag-choice-color var(--efu-red)
+  &.green
+    --tag-choice-color var(--efu-green)
+  &.yellow
+    --tag-choice-color var(--efu-yellow)
+  &.cyan
+    --tag-choice-color var(--efu-cyan, #1bcdfc)
+  &.blue
+    --tag-choice-color var(--efu-blue)
 
   input
     appearance none
     position relative
-    height 16px
-    width 16px
-    transition all .15s ease-out 0s
-    cursor pointer
-    display inline-block
-    outline 0
-    border-radius 2px
-    flex-shrink 0
-    margin-right 8px
-    border 2px solid #2196f3
+    flex 0 0 19px
+    width 19px
+    height 19px
+    margin 3px 0 0
+    border 2px solid var(--tag-choice-color)
+    background var(--st-surface)
     pointer-events none
+    transition background var(--st-motion), transform var(--st-motion)
 
-    &[type=checkbox]
-      &:before
-        left 1px
-        top 5px
-        width 0
-        height 2px
-        transition all .2s ease-in
-        transform rotate(45deg)
+    &:checked
+      background var(--tag-choice-color)
 
-      &:after
-        right 7px
-        bottom 3px
-        width 2px
-        height 0
-        transition all .2s ease-out
-        transform rotate(40deg)
-        transition-delay .25s
+    &[type='checkbox']
+      border-radius 6px
 
-      &:checked
-        background #2196f3
+      &::after
+        content ''
+        position absolute
+        top 2px
+        left 5px
+        width 5px
+        height 9px
+        border solid var(--efu-white)
+        border-width 0 2px 2px 0
+        opacity 0
+        transform rotate(45deg) scale(.7)
+        transition opacity var(--st-motion), transform var(--st-motion)
 
-      &:checked:before
-        left 0
-        top 7px
-        width 6px
-        height 2px
+      &:checked::after
+        opacity 1
+        transform rotate(45deg) scale(1)
 
-      &:checked:after
-        right 3px
-        bottom 1px
-        width 2px
-        height 10px
-
-  &.minus
-    input[type=checkbox]:before
-      transform rotate(0)
-      left 1px
-      top 5px
-      width 0
-      height 2px
-
-    input[type=checkbox]:after
-      transform rotate(0)
-      left 1px
-      top 5px
-      width 0
-      height 2px
-
-    input[type=checkbox]:checked:before
-      left 1px
-      top 5px
-      width 10px
-      height 2px
-
-    input[type=checkbox]:checked:after
-      left 1px
-      top 5px
-      width 10px
-      height 2px
-
-  &.plus
-    input[type=checkbox]:before
-      transform rotate(0)
-      left 1px
-      top 5px
-      width 0
-      height 2px
-
-    input[type=checkbox]:after
-      transform rotate(0)
-      left 5px
-      top 1px
-      width 2px
-      height 0
-
-    input[type=checkbox]:checked:before
-      left 1px
-      top 5px
-      width 10px
-      height 2px
-
-    input[type=checkbox]:checked:after
-      left 5px
-      top 1px
-      width 2px
-      height 10px
-
-  &.times
-    input[type=checkbox]:before
-      transform rotate(45deg)
-      left 3px
-      top 1px
-      width 0
-      height 2px
-
-    input[type=checkbox]:after
-      transform rotate(135deg)
-      right 3px
-      top 1px
-      width 0
-      height 2px
-
-    input[type=checkbox]:checked:before
-      left 1px
-      top 5px
-      width 10px
-      height 2px
-
-    input[type=checkbox]:checked:after
-      right 1px
-      top 5px
-      width 10px
-      height 2px
-
-  input[type=radio]
-    border-radius 50%
-
-    &:before
-      content ""
-      display block
-      width 8px
-      height 8px
+    &[type='radio']
       border-radius 50%
-      margin 2px
-      transform scale(0)
-      transition all .25s ease-out
 
-    &:checked:before
-      transform scale(1)
-      background var(--text-bg-hover)
+      &::after
+        content ''
+        position absolute
+        inset 3px
+        border-radius 50%
+        background var(--efu-white)
+        opacity 0
+        transform scale(.5)
+        transition opacity var(--st-motion), transform var(--st-motion)
 
-  &.red input
-    border-color #fe5f58
+      &:checked::after
+        opacity 1
+        transform scale(1)
 
-    &[type=checkbox]:checked
-      background #fe5f58
+  &.minus input[type='checkbox']:checked::after
+    top 7px
+    left 3px
+    width 9px
+    height 2px
+    border 0
+    background var(--efu-white)
+    transform none
 
-    &[type=radio]:checked:before
-      background #fe5f58
+  &.plus input[type='checkbox']:checked
+    &::before,
+    &::after
+      content ''
+      position absolute
+      top 7px
+      left 3px
+      width 9px
+      height 2px
+      border 0
+      background var(--efu-white)
+      opacity 1
+      transform none
+    &::before
+      transform rotate(90deg)
 
-  &.green input
-    border-color #3dc550
+  &.times input[type='checkbox']:checked
+    &::before,
+    &::after
+      content ''
+      position absolute
+      top 7px
+      left 3px
+      width 9px
+      height 2px
+      border 0
+      background var(--efu-white)
+      opacity 1
+    &::before
+      transform rotate(45deg)
+    &::after
+      transform rotate(-45deg)
 
-    &[type=checkbox]:checked
-      background #3dc550
+  .tag-choice-content
+    min-width 0
+    line-height 1.65
 
-    &[type=radio]:checked:before
-      background #3dc550
-
-  &.yellow input
-    border-color #ffbd2b
-
-    &[type=checkbox]:checked
-      background #ffbd2b
-
-    &[type=radio]:checked:before
-      background #ffbd2b
-
-  &.cyan input
-    border-color #1bcdfc
-
-    &[type=checkbox]:checked
-      background #1bcdfc
-
-    &[type=radio]:checked:before
-      background #1bcdfc
-
-  &.blue input
-    border-color #2196f3
-
-    &[type=checkbox]:checked
-      background #2196f3
-
-    &[type=radio]:checked:before
-      background #2196f3
-
-  p
-    display: inline-block
-    margin-top 2px !important
-    margin-bottom 0 !important
-
-  input[type=checkbox]:after, input[type=checkbox]:before
-    position absolute
-    content ""
-    background #fff
+    p
+      display inline
+      margin 0 !important
+      font-size inherit

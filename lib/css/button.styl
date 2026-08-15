@@ -1,22 +1,169 @@
-.st-btn
-  display inline-block
-  padding 0.5rem 1rem
-  margin .5rem
-  border var(--style-border)
-  border-radius 8px
-  background-color var(--efu-card-btn-bg)
-  color var(--efu-fontcolor)
-  text-decoration none
-  cursor pointer
-  transition all 0.3s
+.article-container a.solitude-tag.tag-button
+  --tag-button-color var(--st-accent)
+  --tag-button-background var(--st-surface-muted)
+  --tag-button-border var(--st-border)
+  --tag-button-text var(--tag-button-color)
+  --tag-button-soft var(--st-accent-soft)
+  --tag-button-soft unquote('color-mix(in srgb, var(--tag-button-color) 14%, transparent)')
+  --tag-button-icon-background var(--tag-button-soft)
+  position relative
+  display inline-flex
+  align-items center
+  justify-content center
+  gap 6px
+  min-height 44px
+  margin var(--st-space-2) var(--st-space-2) var(--st-space-2) 0
+  padding 7px 14px
+  overflow hidden
+  border 1px solid var(--tag-button-border)
+  border-radius var(--st-radius-lg)
+  background var(--tag-button-background)
+  box-shadow 0 2px 8px rgba(44, 45, 48, .06)
+  color var(--tag-button-text) !important
+  font-size .82rem
+  font-weight 650
+  line-height 1.2
+  text-decoration none !important
+  isolation isolate
+  transition border-color var(--st-motion), background var(--st-motion), color var(--st-motion), transform var(--st-motion), box-shadow var(--st-motion)
 
-  &:hover
-    border var(--style-border-hover)
-    background-color var(--efu-theme-op)
+  &::before
+    content ''
+    position absolute
+    z-index -1
+    top 0
+    right 10px
+    left 10px
+    height 1px
+    background rgba(255, 255, 255, .55)
+    opacity 0
+    pointer-events none
+    transition opacity var(--st-motion)
+
+  &.has-icon
+    padding 6px 14px 6px 7px
 
   i
-    font-size 1.2em
-    vertical-align middle
-    transition all 0.3s
+    display flex
+    flex 0 0 28px
+    align-items center
+    justify-content center
+    width 28px
+    height 28px
+    border 0
+    border-radius var(--st-radius-sm)
+    background var(--tag-button-icon-background)
+    color inherit
+    font-size .78rem
+    transition background var(--st-motion), transform var(--st-motion)
+
   span
-    margin-left 0.5em
+    min-width 0
+    margin 0
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+
+  &:hover
+    border-color var(--tag-button-color)
+    border-radius var(--st-radius-lg)
+    background var(--st-surface)
+    box-shadow 0 6px 16px var(--tag-button-soft)
+    transform translateY(-1px)
+
+    &::before
+      opacity 1
+
+    i
+      transform translateY(-1px)
+
+  &:active
+    border-radius var(--st-radius-lg)
+    box-shadow 0 2px 6px rgba(44, 45, 48, .08)
+    transform translateY(0)
+
+    i
+      transform translateY(0)
+
+  &:focus-visible
+    border-radius var(--st-radius-lg)
+    outline 3px solid var(--tag-button-soft)
+    outline-offset 3px
+
+  &.is-icon-only
+    width 44px
+    min-width 44px
+    padding 7px
+    aspect-ratio 1
+
+    i
+      flex-basis 28px
+
+  &.larger
+    min-height 48px
+    padding-inline 17px
+    font-size .88rem
+
+    &.has-icon
+      padding 7px 17px 7px 8px
+
+    i
+      flex-basis 32px
+      width 32px
+      height 32px
+      font-size .84rem
+
+  &.block
+    display flex
+    width 100%
+    margin-right 0
+
+  &.center
+    width fit-content
+    margin-inline auto
+
+  &.right
+    width fit-content
+    margin-right 0
+    margin-left auto
+
+  &.blue
+    --tag-button-color var(--efu-blue)
+  &.pink
+    --tag-button-color var(--efu-pink)
+  &.red
+    --tag-button-color var(--efu-red)
+  &.purple
+    --tag-button-color var(--efu-purple)
+  &.orange
+    --tag-button-color var(--efu-orange)
+  &.green
+    --tag-button-color var(--efu-green)
+
+  &.blue,
+  &.pink,
+  &.red,
+  &.purple,
+  &.orange,
+  &.green
+    --tag-button-background var(--tag-button-color)
+    --tag-button-border var(--tag-button-color)
+    --tag-button-text var(--efu-white)
+    --tag-button-icon-background rgba(255, 255, 255, .14)
+
+    &:hover
+      background var(--tag-button-color)
+      box-shadow 0 6px 16px var(--tag-button-soft)
+      filter brightness(1.04)
+
+  &.outline
+    --tag-button-background var(--st-surface)
+    --tag-button-border var(--tag-button-color)
+    --tag-button-text var(--tag-button-color)
+    --tag-button-icon-background var(--st-surface-muted)
+    box-shadow none
+
+    &:hover
+      background var(--tag-button-soft)
+      box-shadow 0 4px 12px var(--tag-button-soft)
+      filter none

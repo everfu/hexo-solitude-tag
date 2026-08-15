@@ -1,29 +1,138 @@
-.repo-card
+.article-container .solitude-tag.repo-card
+  position relative
+  display grid
+  grid-template-rows auto auto 1fr auto
+  gap var(--st-space-2)
+  min-height 190px
+  margin var(--st-space-4) 0
+  padding var(--st-space-4)
+  overflow hidden
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background radial-gradient(circle at 100% 0, var(--st-accent-soft), transparent 42%), var(--st-surface)
+  box-shadow var(--st-shadow)
+  transition border-color var(--st-motion), box-shadow var(--st-motion), transform var(--st-motion)
+
+  &:hover
+    border-color var(--st-accent)
+    box-shadow var(--st-shadow-hover)
+    transform translateY(-2px)
+
+  &::after
+    content ''
+    position absolute
+    top 0
+    left 0
+    width 4px
+    height 100%
+    background var(--st-accent)
+
+  .repo-card-header,
+  .repo-card-footer,
+  .repo-gist
     display flex
-    flex-direction column
-    border var(--style-border)
-    border-radius 12px
-    padding .5rem 1rem
-    margin .5rem 0
-    transition 0.3s
-    position relative 
-    box-shadow var(--efu-shadow-border)
+    align-items center
 
-    .repo-title
-        font-size 1.25rem
+  .repo-card-header,
+  .repo-card-footer
+    justify-content space-between
+    gap var(--st-space-3)
 
-        &:hover
-            color var(--efu-lighttext)!important
+  .repo-provider,
+  .repo-status
+    display inline-flex
+    align-items center
+    gap 6px
+    color var(--st-text-muted)
+    font-size .72rem
+    font-weight 700
 
+  .repo-provider
+    text-transform uppercase
+    letter-spacing .06em
+
+  .repo-status
+    padding 3px 8px
+    border-radius var(--st-radius-pill)
+    background var(--st-surface-muted)
+
+  .repo-language
+    display block
+    width 28px
+    height 28px
+    margin 0
+    border-radius 7px
+    object-fit contain
+
+    &[hidden]
+      display none
+
+  a.repo-title
+    display block
+    width fit-content
+    max-width 100%
+    overflow hidden
+    border 0
+    color var(--st-text) !important
+    font-size 1.2rem
+    font-weight 800
+    line-height 1.3
+    text-overflow ellipsis
+    text-decoration none !important
+    white-space nowrap
+
+    &:hover
+      color var(--st-accent) !important
+
+    &:focus-visible
+      border-radius 5px
+      outline 3px solid var(--st-accent-soft)
+      outline-offset 3px
+
+  p.repo-desc
+    display -webkit-box
+    margin 0 !important
+    overflow hidden
+    color var(--st-text-muted)
+    font-size .84rem
+    line-height 1.6
+    -webkit-box-orient vertical
+    -webkit-line-clamp 2
+
+  .repo-gist
+    gap var(--st-space-3)
+    color var(--st-text-muted)
+    font-size .78rem
+
+    > span
+      display inline-flex
+      align-items center
+      gap 5px
+
+    i
+      color var(--st-accent)
+
+  &[aria-busy='true']
+    .repo-title,
     .repo-desc
-        margin .5rem 0!important
+      border-radius 5px
+      color transparent !important
+      background linear-gradient(90deg, var(--st-surface-muted), var(--st-accent-soft), var(--st-surface-muted))
+      background-size 200% 100%
+      animation tag-repo-loading 1.4s ease infinite
+    .repo-title
+      width 38%
+    .repo-desc
+      width 72%
 
-    .repo-language
-        position absolute
-        right 1.5rem
-        top 1.5rem
-    
-    .repo-gist
-        margin-right .1rem
-        span
-            margin-right .5rem
+  &.tag-plugin-error
+    &::after
+      background var(--efu-red)
+    .repo-status
+      color var(--efu-red)
+
+@keyframes tag-repo-loading
+  from
+    background-position 100% 0
+  to
+    background-position -100% 0

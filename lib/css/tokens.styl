@@ -1,0 +1,40 @@
+.article-container
+  --st-space-1 4px
+  --st-space-2 8px
+  --st-space-3 12px
+  --st-space-4 16px
+  --st-space-5 24px
+  --st-radius-sm 8px
+  --st-radius-md 10px
+  --st-radius-lg 14px
+  --st-radius-pill 999px
+  --st-surface var(--efu-card-bg, #fff)
+  --st-surface-muted var(--efu-secondbg, #f7f7f9)
+  --st-text var(--efu-fontcolor, #363636)
+  --st-text-muted var(--efu-secondtext, rgba(60, 60, 67, .72))
+  --st-accent var(--efu-main, #425aef)
+  --st-accent-soft var(--efu-theme-op, rgba(66, 90, 239, .12))
+  --st-border var(--efu-card-border, #e3e8f7)
+  --st-shadow var(--efu-shadow-border, 0 8px 24px rgba(44, 45, 48, .06))
+  --st-shadow-hover var(--efu-shadow-main, 0 12px 28px rgba(66, 90, 239, .16))
+  --st-motion 180ms cubic-bezier(.2, .7, .2, 1)
+
+.article-container .solitude-tag
+  box-sizing border-box
+  color var(--st-text)
+  font-family inherit
+
+  *,
+  *::before,
+  *::after
+    box-sizing border-box
+
+.article-container .tag-plugin-error
+  border-color var(--efu-red) !important
+  color var(--efu-red)
+
+.article-container .tag-plugin-error[role='alert']
+  padding var(--st-space-3) var(--st-space-4)
+  border 1px solid var(--efu-red)
+  border-radius var(--st-radius-md)
+  background var(--st-surface)

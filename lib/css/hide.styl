@@ -1,0 +1,74 @@
+.article-container .solitude-tag.tag-hide
+  --tag-hide-bg var(--st-accent)
+  --tag-hide-color var(--efu-white)
+  margin var(--st-space-3) 0
+
+  &.tag-hide-inline
+    display inline-flex
+    align-items baseline
+    gap 6px
+    margin 0 3px
+
+  &.tag-hide-block,
+  &.tag-hide-toggle
+    padding var(--st-space-3)
+    border 1px solid var(--st-border)
+    border-radius var(--st-radius-lg)
+    background var(--st-surface)
+    box-shadow var(--st-shadow)
+
+    .tag-hide-content
+      display block
+      margin-top var(--st-space-3)
+      padding var(--st-space-3)
+      border-radius var(--st-radius-md)
+      background var(--st-surface-muted)
+
+      > :first-child
+        margin-top 0 !important
+      > :last-child
+        margin-bottom 0 !important
+
+  .tag-hide-button
+    display inline-flex
+    align-items center
+    justify-content center
+    min-height 44px
+    padding 8px var(--st-space-4)
+    border 1px solid var(--tag-hide-bg)
+    border-radius var(--st-radius-md)
+    background var(--tag-hide-bg)
+    box-shadow var(--st-shadow)
+    color var(--tag-hide-color)
+    font inherit
+    font-size .86rem
+    font-weight 700
+    line-height 1.2
+    cursor pointer
+    transition filter var(--st-motion), transform var(--st-motion), box-shadow var(--st-motion)
+
+    &::after
+      content '＋'
+      margin-left var(--st-space-2)
+      font-size .85em
+
+    &[aria-expanded='true']::after
+      content '−'
+
+    &:hover
+      box-shadow var(--st-shadow-hover)
+      filter brightness(1.05)
+      transform translateY(-1px)
+
+    &:focus-visible
+      outline 3px solid var(--st-accent-soft)
+      outline-offset 3px
+
+  .tag-hide-content[hidden]
+    display none !important
+
+@media screen and (max-width: 768px)
+  .article-container .solitude-tag.tag-hide
+    &.tag-hide-block,
+    &.tag-hide-toggle
+      padding var(--st-space-2)

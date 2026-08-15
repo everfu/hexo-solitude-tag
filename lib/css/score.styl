@@ -1,0 +1,23 @@
+.article-container .solitude-tag.abc-music-sheet
+  min-height 120px
+  margin var(--st-space-4) 0
+  padding var(--st-space-4)
+  overflow-x auto
+  border 1px solid var(--st-border)
+  border-radius var(--st-radius-lg)
+  background var(--st-surface)
+  box-shadow var(--st-shadow)
+  color var(--st-text)
+  scrollbar-width thin
+
+  svg
+    display block
+    max-width 100%
+    margin 0 auto
+
+  &.tag-plugin-error
+    white-space pre-wrap
+
+@media screen and (max-width: 768px)
+  .article-container .solitude-tag.abc-music-sheet
+    padding var(--st-space-3)
